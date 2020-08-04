@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    meta(name="viewport", content="width=device-width, initial-scale = 1.0")
+    link(rel='stylesheet', type="text/css", media="screen" href='/stylesheets/style.css')
+    link(href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap", rel="stylesheet")
+    link(rel="icon", type="image/png", href="/images/icons/favicon.png")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    script(src="/javascripts/pinned.js")
+    script(src="/javascripts/nav-menu.js")
+    block pagehead
+        
+  body
+    include includes/nav.pug
+    block content
+    include includes/footer.pug

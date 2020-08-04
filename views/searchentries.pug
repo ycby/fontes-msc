@@ -1,0 +1,101 @@
+extends search
+
+//- block printcss
+//-     link(rel="stylesheet", type="text/css", media="print", href="/stylesheets/printentries.css")
+
+block resultstable
+  div(class="row")
+      div(id="search-results-container" class="col-8 offset-col-2 col-s-8 offset-col-s-2")
+
+          +pagination(pages)
+              
+          //- -var tableUpperLimit = ta
+          div(class="records-information")
+              span #{recordcount.recordslowerlimit}-#{recordcount.recordsupperlimit} of #{recordcount.totalrecords} records
+              a(href="#") See all records
+          
+          //-W3schools to the rescue again
+          div(id="entries-container")
+              each record, index in tabledata
+                  div(class="accordion-container")
+                      div(class="row")
+                          button(class="accordion col-12 row")
+                              span(class="col-1 col-s-1 col-xs-2 pin")
+                              span(class="col-3 col-s-3 col-xs-5")= record.entrylocation
+                              span(class="col-6 col-s-6 entry-quote")= record.entryquote
+                              span(class="col-1 col-s-1 col-xs-3")= record.sigil
+                              span(class="col-1 col-s-1 col-xs-2 entry-arrow")
+                          div(class="accordion-panel")
+                              
+                              button(id=("cite-button-" + index) class="cite-button") Cite
+                              +citemodal(record, citeinfo, index)
+                              
+                              div(class="row")
+                                  div(class="col-3 col-s-4 entry-block")
+                                      p(class="entry-heading") Text Reference:
+                                      p(class="entry-detail")= record.textreference
+                                  div(class="col-3 col-s-4 entry-block")
+                                      p(class="entry-heading") Entry Reference:
+                                      p(class="entry-detail")= record.entryreference
+                                  div(class="col-3 col-s-4 entry-block")
+                                      p(class="entry-heading") Source Reference:
+                                      p(class="entry-detail")= record.sourcereference
+                                  div(class="col-3 col-s-4 entry-block")
+                                      p(class="entry-heading") BHL Number:
+                                      p(class="entry-detail")= record.bhlnumber
+                                  
+                                  
+                              div(class="row")
+                                  div(class="col-3 col-s-4 entry-block")
+                                      p(class="entry-heading") Source Text:
+                                      p(class="entry-detail")= record.sourcetext
+                                  div(class="col-3 col-s-4 entry-block")
+                                      p(class="entry-heading") Source Author:
+                                      p(class="entry-detail")= record.sourceauthor
+                                  div(class="col-3 col-s-4 entry-block")
+                                      p(class="entry-heading") Source Edition:
+                                      p(class="entry-detail")= record.sourceedition
+                                  div(class="col-3 col-s-4 entry-block")
+                                      p(class="entry-heading") Sigla Interpretation:
+                                      each interpretation, index in record.siglainterpretation
+                                          p(class="entry-detail") #{index + 1}. #{interpretation}
+                              
+                              div(class="row")
+                                  div(class="col-3 col-s-3 entry-block")
+                                      p(class="entry-heading") Source Location:
+                                      p(class="entry-detail")= record.sourcelocation
+                                  div(class="col-6 col-s-6 entry-block")
+                                      p(class="entry-heading") Source Quote:
+                                      p(class="entry-detail")= record.sourcequote
+                                      
+                              div(class="row")
+                                  div(class="col-3 col-s-3 entry-block")
+                                      p(class="entry-heading") Entry Location:
+                                      p(class="entry-detail")= record.entrylocation
+                                  div(class="col-6 col-s-6 entry-block")
+                                      p(class="entry-heading") Entry Quote:
+                                      p(class="entry-detail")= record.entryquote
+                              
+                              div(class="row")
+                                  div(class="col-10 col-s-10 entry-block")
+                                      p(class="entry-heading") Comment:
+                                      p(class="entry-detail")= record.comment
+                                  
+                              div(class="row")
+                                  div(class="col-10 col-s-10 entry-block")
+                                      p(class="entry-heading") Bibliography:
+                                      p(class="entry-detail")= record.bibliography
+                              
+                              div(class="row")
+                                  div(class="col-10 col-s-10 entry-block")
+                                      p(class="entry-heading") Manuscript:
+                                      p(class="entry-detail")= record.manuscript
+                                     
+                              div(class="row")
+                                  div(class="col-2 col-s-2 offset-col-10 offset-col-s-10 entry-block")
+                                      p(class="entry-heading") Date:
+                                      p(class="entry-detail")= record.date
+                                  div(class="hidden")
+                                      p(class="_id")= record._id
+              
+          +pagination(pages)

@@ -1,0 +1,57 @@
+html
+  head
+      link(href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap", rel="stylesheet")
+      link(rel="stylesheet", type="text/css", href="/stylesheets/printentries.css")
+      script(src="/javascripts/print.js")
+
+body
+  div(id="top")
+      img(src="/images/logo.png", alt="Logo for Fontes Anglo-Saxonici")
+      h1 Entries
+  div(id="texts")
+      table(id="target")
+          tbody
+              tr
+                  td(class="title") Target Text:
+                  td #[strong Author:] #{selectedtexts.targettext.author}
+                  td #[strong Date Added:] #{selectedtexts.targettext.date}
+              tr
+                  td(class="title title-text")= selectedtexts.targettext.title
+                  td #[strong Edition:] #{selectedtexts.targettext.edition}
+                  td #[strong Contributor:] #{selectedtexts.targettext.contributor}
+                  
+      table(id="source")
+          tbody
+              tr
+                  td(class="title") Source Text:
+                  td #[strong Author:] #{selectedtexts.sourcetext.author}
+                  td
+              tr
+                  td(class="title title-text")= selectedtexts.sourcetext.title
+                  td #[strong Edition:] #{selectedtexts.sourcetext.edition}
+                  td
+
+  div(id="results")
+      each result in tabledata
+          table
+              tbody
+                  tr
+                      td #[strong Source Location:]
+                      td #[strong Source Quote:]
+                      td #[strong Sigla:]
+                  tr
+                      td= result.sourcelocation
+                      td= result.sourcequote
+                      td= result.sigil
+                  tr
+                      td
+                      td
+                      td
+                  tr
+                      td #[strong Entry Location:]
+                      td #[strong Entry Quote:]
+                      td
+                  tr
+                      td= result.entrylocation
+                      td= result.entryquote
+                      td

@@ -1,0 +1,22 @@
+html
+  head
+      link(href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap", rel="stylesheet")
+      link(rel="stylesheet", type="text/css", href="/stylesheets/printbook.css")
+      //script(src="/javascripts/print.js")
+
+body
+  div(id="top")
+      img(src="/images/logo.png", alt="Logo for Fontes Anglo-Saxonici")
+      h1 Texts
+  div(id="results")
+      table
+          thead
+              th Title
+              th Author
+              th Edition
+          tbody
+              each record in tabledata
+                  tr
+                      td= record.title
+                      td= record.author
+                      td= record.edition
