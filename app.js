@@ -16,6 +16,7 @@ var helpRouter = require('./routes/help');
 
 var app = express();
 
+app.set('port', process.env.PORT || 20561);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -49,5 +50,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(app.get('port'));
 
 module.exports = app;

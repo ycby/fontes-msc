@@ -42,7 +42,7 @@ $(document).ready(function() {
             render: custRender,
             fetch: function(text, update) {
                 text = text.toLowerCase();
-                $.get("targetsuggestions?title=" + text, function(data) {
+                $.get("/search/targetsuggestions?title=" + text, function(data) {
                     // console.log(suggestions);
                     update(data);
                 });
@@ -60,7 +60,7 @@ $(document).ready(function() {
             render: custRender,
             fetch: function(text, update) {
                 text = text.toLowerCase();
-                $.get("sourcesuggestions?title=" + text, function(data) {
+                $.get("/search/sourcesuggestions?title=" + text, function(data) {
                     // console.log(suggestions);
                     update(data);
                 });
