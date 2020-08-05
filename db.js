@@ -1,5 +1,5 @@
 var mongoose = require("mongoose")
-var mongoDB = "mongodb://127.0.0.1:27017/fontes";
+var mongoDB = "mongodb+srv://ycby:jiMiYB6xRikGpiJ@cluster0.87w15.gcp.mongodb.net/fontes?retryWrites=true&w=majority";
 
 mongoose.connect(mongoDB, {useUnifiedTopology: true, useNewUrlParser: true});
 

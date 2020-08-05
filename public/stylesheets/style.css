@@ -535,6 +535,9 @@ button {
 p {
   margin-bottom: 12px;
 }
+.example-record {
+  margin: 2vh 0;
+}
 .row {
   width: 100%;
   position: relative;

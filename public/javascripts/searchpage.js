@@ -206,8 +206,10 @@ function toggleEntryInPinned(event) {
 //for making records which were already pinned, pinned on page load
 function setPinnedIfPinned() {
 
-    if (JSON.parse(localStorage.getItem("pinned-entries")).includes($(this).parent().next().find("._id").text())) {
-        $(this).toggleClass("pinned");
+    if (localStorage.getItem("pinned-entries") != null) {
+        if (JSON.parse(localStorage.getItem("pinned-entries")).includes($(this).parent().next().find("._id").text())) {
+            $(this).toggleClass("pinned");
+        }
     }
 }
 

@@ -2,15 +2,20 @@ extends layout
 
 block pagehead
   title Fontes Anglo-Saxonici - Pinned
+  script(src="/javascripts/pinnedpage.js")
   
 block content
   div(class="row")
       h1(class="page-heading col-8 offset-col-2") Pinned
   div(class="row")
       div(class="col-6 offset-col-2 main-text-content" role="main")
-          p It looks like you haven't pinned any entries yet. To pin an entry, click the "pin" icon on the top-left of a record.
+          p It looks like you haven't pinned any entries yet. To pin an entry, click the "pin" icon on the left of a record. Try clicking on the pin in the example record below.
           
-          p image inserted here
+          button(class="example-record accordion col-12 row")
+              span(class="col-1 col-s-1 col-xs-2 pin")
+              span(class="col-10 col-s-10 col-xs-10") Example Record
+              span(class="col-1 col-s-1 col-xs-2 entry-arrow")
+          span
           
-          p You can pin entries from various searches so you can collect all entries you are interested in a centralised location. However, these records will be deleted on the closing of your browser, so be careful!
+          p You can pin entries from various searches so you can collect all entries you are interested in a centralised location. These records will be stored until you unpin them or clear your browser's storage.
           
