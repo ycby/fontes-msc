@@ -1,0 +1,162 @@
+@media only screen {
+  * {
+    display: none;
+  }
+}
+@media print {
+  * {
+    box-sizing: border-box;
+    font-family: "Cormorant Garamond", serif;
+    color: #000;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-color: #fff;
+    font-size: 12px;
+    border-bottom: #000 3px solid;
+  }
+  #top {
+    border-bottom: #000 3px solid;
+  }
+  #top img {
+    width: 125px;
+    height: auto;
+    margin-bottom: 5px;
+  }
+  #top h1 {
+    font-size: 48px;
+    float: right;
+  }
+  .targets {
+    border-bottom: #000 solid 2px;
+    border-top: #000 solid 2px;
+    padding: 10px 0;
+  }
+  .targets:first-child {
+    border-top: none;
+  }
+  .targets + .sources {
+    border-top: none;
+  }
+  .sources {
+    border-bottom: #000 solid 2px;
+    border-top: #000 solid 2px;
+    padding: 5px 0;
+  }
+  .sources + .entries {
+    border-top: none;
+  }
+  .entries {
+    border-top: #000 solid 1px;
+    padding: 5px 0;
+  }
+  .title {
+    font-size: 14px;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .italic {
+    font-style: italic;
+  }
+  span {
+    padding-right: 8px;
+  }
+  .offset-col-1 {
+    left: 8.333333333333334%;
+    position: relative;
+  }
+  .offset-col-2 {
+    left: 16.666666666666668%;
+    position: relative;
+  }
+  .offset-col-3 {
+    left: 25%;
+    position: relative;
+  }
+  .offset-col-4 {
+    left: 33.333333333333336%;
+    position: relative;
+  }
+  .offset-col-5 {
+    left: 41.66666666666667%;
+    position: relative;
+  }
+  .offset-col-6 {
+    left: 50%;
+    position: relative;
+  }
+  .offset-col-7 {
+    left: 58.333333333333336%;
+    position: relative;
+  }
+  .offset-col-8 {
+    left: 66.66666666666667%;
+    position: relative;
+  }
+  .offset-col-9 {
+    left: 75%;
+    position: relative;
+  }
+  .offset-col-10 {
+    left: 83.33333333333334%;
+    position: relative;
+  }
+  .offset-col-11 {
+    left: 91.66666666666667%;
+    position: relative;
+  }
+  .offset-col-12 {
+    left: 100%;
+    position: relative;
+  }
+  .col-1 {
+    width: 8.333333333333334%;
+    display: inline-block;
+  }
+  .col-2 {
+    width: 16.666666666666668%;
+    display: inline-block;
+  }
+  .col-3 {
+    width: 25%;
+    display: inline-block;
+  }
+  .col-4 {
+    width: 33.333333333333336%;
+    display: inline-block;
+  }
+  .col-5 {
+    width: 41.66666666666667%;
+    display: inline-block;
+  }
+  .col-6 {
+    width: 50%;
+    display: inline-block;
+  }
+  .col-7 {
+    width: 58.333333333333336%;
+    display: inline-block;
+  }
+  .col-8 {
+    width: 66.66666666666667%;
+    display: inline-block;
+  }
+  .col-9 {
+    width: 75%;
+    display: inline-block;
+  }
+  .col-10 {
+    width: 83.33333333333334%;
+    display: inline-block;
+  }
+  .col-11 {
+    width: 91.66666666666667%;
+    display: inline-block;
+  }
+  .col-12 {
+    width: 100%;
+    display: inline-block;
+  }
+}

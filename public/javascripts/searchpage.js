@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     //shrink the search container
-    $("#search-container-collasper").click(shrinkSearch);
+    $("#search-container-collapser").click(shrinkSearch);
 
     //copy citation
     $(".cite").find(".copy").click(clipboardCopy);
@@ -93,7 +93,7 @@ $(document).ready(function() {
     $("#reference").val(sessionStorage.getItem("reference"));
 
     $("#search-breadcrumb").text($("#search-breadcrumb").text() + " " + (sessionStorage.getItem("title") != null ? sessionStorage.getItem("title") : ""));
-    $("#search-breadcrumb").attr("href", (sessionStorage.getItem("query") != null ? "/search?" + sessionStorage.getItem("query") : "/search"));
+    $("#search-breadcrumb").attr("href", (sessionStorage.getItem("query") != null ? "/search/?" + sessionStorage.getItem("query") : "/search/"));
 
     $("#submit-query-button").click(saveQuery);
 

@@ -11,7 +11,8 @@ var Header = require("../models/header");
 
 var activepage = "search";
 
-var stepsize = 30;
+const STEPSIZE = 30;
+const ENTRYSTEPSIZE = 10;
 
 
 exports.index = function(req, res) {
@@ -30,29 +31,33 @@ exports.index = function(req, res) {
 
 exports.getPrint = function(req, res) {
 
-    console.log(req.query)
+    var reqQuery = req.query;
 
-    var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
+    reqQuery.stepSize = -1;
+    reqQuery.pageNo = 1;
 
     if (req.query.texttype == "source-text") {
 
-        getSourceTexts(pageNo, "printtexts", req.query, res);
+        getSourceTexts(reqQuery.pageNo, "printtexts", reqQuery, res);
     } else {
 
-        getTargetTexts(pageNo, "printtexts", req.query, res);
+        getTargetTexts(reqQuery.pageNo, "printtexts", reqQuery, res);
     }
 }
 
 exports.getCSV = function(req, res) {
 
-    var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
+    var reqQuery = req.query;
+
+    reqQuery.stepSize = -1;
+    reqQuery.pageNo = 1;
 
     if (req.query.texttype == "source-text") {
 
-        getSourceCSV(pageNo, req.query, res);
+        getSourceCSV(reqQuery.pageNo, reqQuery, res);
     } else {
 
-        getTargetCSV(pageNo, req.query, res);
+        getTargetCSV(reqQuery.pageNo, reqQuery, res);
     }
 
 }
@@ -69,7 +74,7 @@ function getTargetCSV(pageNo, reqQuery, res) {
             helpers.documentCount(Header, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(Header, query, reqQuery.stepSize != null ? reqQuery.stepSize : stepsize, pageNo - 1, {new_title: 1}).exec(callback);
+            helpers.documentSearch(Header, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {new_title: 1}).exec(callback);
         }
     }, function(err, results) {
 
@@ -92,7 +97,7 @@ function getSourceCSV(pageNo, reqQuery, res) {
             helpers.documentCount(BibPrime, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(BibPrime, query, reqQuery.stepSize != null ? reqQuery.stepSize : stepsize, pageNo - 1, {title: 1}).exec(callback);
+            helpers.documentSearch(BibPrime, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {title: 1}).exec(callback);
         }
     }, function(err, results) {
 
@@ -146,7 +151,7 @@ exports.getSourceSuggestions = function(req, res) {
 function getTargetTexts(pageNo, pageToRender, reqQuery, res) {
 
     var query = queryBuilderHeader(reqQuery.title, reqQuery.author, reqQuery.edition, reqQuery.reference);
-    // console.log(query);
+    // console.log(reqQuery);
 
     //force reqQuery to init on target-text
     reqQuery.texttype = "target-text";
@@ -156,12 +161,12 @@ function getTargetTexts(pageNo, pageToRender, reqQuery, res) {
             helpers.documentCount(Header, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(Header, query, reqQuery.stepSize != null ? reqQuery.stepSize : stepsize, pageNo - 1, {new_title: 1}).exec(callback);
+            helpers.documentSearch(Header, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {new_title: 1}).exec(callback);
         }
     }, function(err, results) {
         res.render(pageToRender, helpers.formatRender(err,
                                             activepage,
-                                            reqQuery.stepSize == null ? stepsize : results.recordcount,
+                                            reqQuery.stepSize == null ? STEPSIZE : results.recordcount,
                                             reqQuery,
                                             pageNo,
                                             helpers.formatHeader(results.records),
@@ -187,20 +192,22 @@ exports.getEntries = function(req, res) {
             .exec(callback);
         },
         entries: function(callback){
-            helpers.documentSearch(Entry, {header: req.params.targetid, bibliography_prime: req.params.sourceid}, stepsize, pageNo - 1, {}).populate("bibliography_prime").exec(callback);
+
+            //get all entries
+            helpers.documentSearch(Entry, {header: req.params.targetid, bibliography_prime: req.params.sourceid}, -1, pageNo - 1, {}).populate("bibliography_prime").exec(callback);
         }
     }, function(err, results) {
 
         if (err) throw err;
 
-        // console.log(results)
+        var newStepSize = req.query.stepSize == null ? ENTRYSTEPSIZE : results.entries.length;
 
         var renderedInfo = helpers.formatRender(err,
                         activepage,
-                        stepsize,
+                        newStepSize,
                         req.query,
                         pageNo,
-                        helpers.formatEntries(results.entries),
+                        helpers.formatEntries(results.entries).slice((pageNo - 1) * newStepSize, pageNo * newStepSize),
                         results.entries.length,
                         {title: results.targetInfo.text_title, author: results.targetInfo.text_author, edition: results.targetInfo.text_edition, contributor: results.targetInfo.contributor, date: results.targetInfo.date, url: results.targetInfo.url},
                         {title: results.sourceInfo.title, author: results.sourceInfo.author, edition: results.sourceInfo.db_edition, url: results.sourceInfo.url});
@@ -222,7 +229,7 @@ function getSourceTexts(pageNo, pageToRender, reqQuery, res) {
             helpers.documentCount(BibPrime, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(BibPrime, query, reqQuery.stepSize != null ? reqQuery.stepSize : stepsize, pageNo - 1, {title: 1}).exec(callback);
+            helpers.documentSearch(BibPrime, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {title: 1}).exec(callback);
         }
     }, function(err, results) {
 
@@ -230,7 +237,7 @@ function getSourceTexts(pageNo, pageToRender, reqQuery, res) {
 
         res.render(pageToRender, helpers.formatRender(err,
                                             activepage,
-                                            reqQuery.stepSize == null ? stepsize : results.recordcount,
+                                            reqQuery.stepSize == null ? STEPSIZE : results.recordcount,
                                             reqQuery,
                                             pageNo,
                                             helpers.formatBibPrime(results.records),
@@ -280,7 +287,7 @@ exports.getSourcesForTargetText = function(req, res) {
 
         // console.log(results.records);
 
-        var newStepSize = req.query.stepSize == null ? stepsize : results.records.length;
+        var newStepSize = req.query.stepSize == null ? STEPSIZE : results.records.length;
 
         res.render("search", helpers.formatRender(err,
                                             activepage,
@@ -334,14 +341,14 @@ exports.getPrintSourcesForTargetText = function(req, res) {
 
         // console.log(results.records);
 
-        var newStepSize = req.query.stepSize == null ? stepsize : results.records.length;
+        var newStepSize = req.query.stepSize == null ? STEPSIZE : results.records.length;
 
         res.render("printtexts", helpers.formatRender(err,
                                             activepage,
                                             newStepSize,
                                             req.query,
                                             pageNo,
-                                            helpers.tempFormatEntryFromHeader(results.records.sort(sortByTitleBibPrime).slice((pageNo - 1) * newStepSize, pageNo * newStepSize)),
+                                            helpers.tempFormatEntryFromHeader(results.records.sort(sortByTitleBibPrime)),
                                             results.records.length,
                                             {title: results.selectedtext.text_title, url: results.selectedtext.url},
                                             {title: "", url: ""}));
@@ -388,12 +395,12 @@ exports.getCSVSourcesForTargetText = function(req, res) {
 
         // console.log(results.records);
 
-        var newStepSize = req.query.stepSize == null ? stepsize : results.records.length;
+        var newStepSize = req.query.stepSize == null ? STEPSIZE : results.records.length;
 
         res.setHeader("Content-Type", "text/csv");
         res.setHeader("Content-Disposition", "attachment; filename=target_texts.csv");
 
-        stringify(helpers.formatCSVSourcesFromTarget(results.records.sort(sortByNewTitleHeader).slice((pageNo - 1) * newStepSize, pageNo * newStepSize)), {header: true}).pipe(res);
+        stringify(helpers.formatCSVSourcesFromTarget(results.records.sort(sortByTitleBibPrime)), {header: true}).pipe(res);
     });
 }
 
@@ -406,7 +413,7 @@ exports.getTargetsForSourceText = function(req, res) {
             helpers.documentById(BibPrime, req.params.sourceid).exec(callback);
         },
         records: function(callback) {
-            // helpers.documentSearch(Entry, {bibliography_prime: req.params.sourceid}, stepsize, pageNo - 1).populate("header").exec(callback);
+            // helpers.documentSearch(Entry, {bibliography_prime: req.params.sourceid}, STEPSIZE, pageNo - 1).populate("header").exec(callback);
 
             async.waterfall([
                 function(aggregateCallback) {
@@ -439,7 +446,7 @@ exports.getTargetsForSourceText = function(req, res) {
 
         // console.log(results.records);
 
-        var newStepSize = req.query.stepSize == null ? stepsize : results.records.length;
+        var newStepSize = req.query.stepSize == null ? STEPSIZE : results.records.length;
 
         res.render("search", helpers.formatRender(err,
                                             activepage,
@@ -462,7 +469,7 @@ exports.getPrintTargetsForSourceText = function(req, res) {
             helpers.documentById(BibPrime, req.params.sourceid).exec(callback);
         },
         records: function(callback) {
-            // helpers.documentSearch(Entry, {bibliography_prime: req.params.sourceid}, stepsize, pageNo - 1).populate("header").exec(callback);
+            // helpers.documentSearch(Entry, {bibliography_prime: req.params.sourceid}, STEPSIZE, pageNo - 1).populate("header").exec(callback);
 
             async.waterfall([
                 function(aggregateCallback) {
@@ -495,14 +502,14 @@ exports.getPrintTargetsForSourceText = function(req, res) {
 
         // console.log(results.records);
 
-        var newStepSize = req.query.stepSize == null ? stepsize : results.records.length;
+        var newStepSize = req.query.stepSize == null ? STEPSIZE : results.records.length;
 
         res.render("printtexts", helpers.formatRender(err,
                                             activepage,
                                             newStepSize,
                                             req.query,
                                             pageNo,
-                                            helpers.tempFormatEntryFromBib(results.records.sort(sortByNewTitleHeader).slice((pageNo - 1) * newStepSize, pageNo * newStepSize)),
+                                            helpers.tempFormatEntryFromBib(results.records.sort(sortByNewTitleHeader)),
                                             results.records.length,
                                             {title: "", url: ""},
                                             {title: results.selectedtext.title, url: results.selectedtext.url}));
@@ -518,7 +525,7 @@ exports.getCSVTargetsForSourceText = function(req, res) {
             helpers.documentById(BibPrime, req.params.sourceid).exec(callback);
         },
         records: function(callback) {
-            // helpers.documentSearch(Entry, {bibliography_prime: req.params.sourceid}, stepsize, pageNo - 1).populate("header").exec(callback);
+            // helpers.documentSearch(Entry, {bibliography_prime: req.params.sourceid}, STEPSIZE, pageNo - 1).populate("header").exec(callback);
 
             async.waterfall([
                 function(aggregateCallback) {
@@ -549,12 +556,12 @@ exports.getCSVTargetsForSourceText = function(req, res) {
 
         if (err) throw err;
 
-        var newStepSize = req.query.stepSize == null ? stepsize : results.records.length;
+        var newStepSize = req.query.stepSize == null ? STEPSIZE : results.records.length;
 
         res.setHeader("Content-Type", "text/csv");
         res.setHeader("Content-Disposition", "attachment; filename=source_texts.csv");
 
-        stringify(helpers.formatCSVTargetsFromSource(results.records.sort(sortByNewTitleHeader).slice((pageNo - 1) * newStepSize, pageNo * newStepSize)), {header: true}).pipe(res);
+        stringify(helpers.formatCSVTargetsFromSource(results.records.sort(sortByNewTitleHeader)), {header: true}).pipe(res);
     });
 }
 
@@ -574,7 +581,8 @@ exports.printEntries = function(req, res) {
             .exec(callback);
         },
         entries: function(callback){
-            helpers.documentSearch(Entry, {header: req.params.targetid, bibliography_prime: req.params.sourceid}, stepsize, pageNo - 1, {}).populate("bibliography_prime").exec(callback);
+            //show all
+            helpers.documentSearch(Entry, {header: req.params.targetid, bibliography_prime: req.params.sourceid}, -1, pageNo - 1, {}).populate("bibliography_prime").exec(callback);
         }
     }, function(err, results) {
 
@@ -584,7 +592,7 @@ exports.printEntries = function(req, res) {
 
         var renderedInfo = helpers.formatRender(err,
                         activepage,
-                        stepsize,
+                        STEPSIZE,
                         req.query,
                         pageNo,
                         helpers.formatEntries(results.entries),
@@ -616,7 +624,8 @@ exports.csvEntries = function(req, res) {
             .exec(callback);
         },
         entries: function(callback){
-            helpers.documentSearch(Entry, {header: req.params.targetid, bibliography_prime: req.params.sourceid}, stepsize, pageNo - 1, {}).populate("bibliography_prime").exec(callback);
+            //all records
+            helpers.documentSearch(Entry, {header: req.params.targetid, bibliography_prime: req.params.sourceid}, -1, pageNo - 1, {}).populate("bibliography_prime").exec(callback);
         }
     }, function(err, results) {
 

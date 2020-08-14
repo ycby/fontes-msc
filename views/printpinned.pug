@@ -1,0 +1,73 @@
+html
+  head
+      link(href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap", rel="stylesheet")
+      link(rel="stylesheet", type="text/css", href="/stylesheets/printpinned.css")
+      script(src="/javascripts/print.js")
+
+body
+  div(id="top")
+      img(src="/images/logo.png", alt="Logo for Fontes Anglo-Saxonici")
+      h1 Entries
+  div(id="texts row")
+      each target in data
+          div(class="targets col-12")
+              div(class="row")
+                  div(class="col-4 title")
+                      span Target Text:
+                  div(class="col-4")
+                      span(class="italic") Author:
+                      span= target[0].text_author
+                  div(class="col-4")
+                      span(class="italic") Date Added:
+                      span= target[0].date
+              div(class="row")
+                  div(class="col-4 title")
+                      span= target[0].text_title
+                  div(class="col-4")
+                      span(class="italic") Edition:
+                      span= target[0].text_edition
+                  div(class="col-4")
+                      span(class="italic") Contributor:
+                      span= target[0].contributor
+                      
+          each source in target[1]
+              div(class="sources col-11 offset-col-1")
+                  div(class="row")
+                      div(class="col-4 title")
+                          span Source Text:
+                      div(class="col-4")
+                          span(class="italic") Author:
+                          span= source[0].author
+                  div(class="row")
+                      div(class="col-4 title")
+                          span= source[0].title
+                      div(class="col-4")
+                          span(class="italic") Edition:
+                          span= source[0].db_edition
+                          
+              each entry in source[1]
+                  div(class="entries col-10 offset-col-2")
+                      div(class="row")
+                          div(class="col-3")
+                              span Source Location:
+                          div(class="col-6")
+                              span Source Quote:
+                          div(class="col-1 offset-col-2")
+                              span Sigla:
+                      div(class="row")
+                          div(class="col-3")
+                              span= entry.sourcelocation
+                          div(class="col-6")
+                              span= entry.sourcequote
+                          div(class="col-1 offset-col-2")
+                              span= entry.sigil
+                      div(class="row")
+                          div(class="col-3")
+                              span Entry Location:
+                          div(class="col-6")
+                              span Entry Quote:
+                      div(class="row")
+                          div(class="col-3")
+                              span= entry.entrylocation
+                          div(class="col-6")
+                              span= entry.entryquote

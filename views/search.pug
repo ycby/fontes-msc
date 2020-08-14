@@ -140,7 +140,7 @@ block content
                       input(type="text", id="reference", name="reference", value=searchquery.reference)
            
       div(class="col-12 col-s-12")       
-          button(type="button", id="search-container-collasper")
+          input(type="button", id="search-container-collapser", value="collapse")
               
   div(id="search-results-heading-background" class="row")        
       div(id="search-results-heading-container" class="col-8 col-s-8 offset-col-2 offset-col-s-2")
@@ -185,13 +185,13 @@ block content
                               each record in tabledata
                                   tr
                                       td
-                                          a(href=(record.url + "?texttype=" + searchquery.texttype)) #{record.title}
+                                          a(href=(record.url + "?texttype=" + searchquery.texttype), alt="") #{record.title}
                                       td
-                                          a(href=(record.url + "?texttype=" + searchquery.texttype)) #{record.author}
+                                          a(href=(record.url + "?texttype=" + searchquery.texttype), alt="") #{record.author}
                                       td
-                                          a(href=(record.url + "?texttype=" + searchquery.texttype)) #{record.edition}
+                                          a(href=(record.url + "?texttype=" + searchquery.texttype), alt="") #{record.edition}
                                       td
-                                          a(class="table-records-number" href=record.url) #{record.count}
+                                          a(class="table-records-number" href=(record.url + "?texttype=" + searchquery.texttype)) #{record.count}
                   else
                       table(id="table-3-col" class="texts-results-table")
                           thead

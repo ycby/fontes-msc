@@ -136,12 +136,13 @@ nav
                 cursor: default
                 pointer-events: none
 
-#search-container-collasper
+#search-container-collapser
     background-image: url("/images/icons/arrow_drop_up-24px.svg")
     background-size: 48px
     background-repeat: no-repeat
     background-color: transparent
     background-position: center
+    color: rgba(0, 0, 0, 0)
     border: none
     cursor: pointer
     outline: none
@@ -242,10 +243,23 @@ nav
 
 //footer here
 footer
-    margin-top: 3vh
-    padding: 3vh 2vw
+    margin-top: 5vh
+    padding: 3vh 2vw 1.5vh
     background-color: color-main
     color: color-light-text
+    font-size: 0.9125em
+    div
+        ul
+            list-style-type: none
+            padding-top: 5px
+            li
+                padding: 3px 0px
+            &:nth-child(1)
+                text-align: left
+            &:nth-child(2)
+                text-align: center
+            &:nth-child(3)
+                text-align: center
 
 //pagination
 .pagination
@@ -296,7 +310,7 @@ footer
     margin-top: 4vh
 
 .main-text-content
-    margin-top: 4vh
+    margin-top: 2vh
     padding: 0 1vw
     color: color-main-text
     h2
@@ -395,6 +409,10 @@ footer
         vertical-align: top
     .entry-heading
         font-weight: 600
+    p.entry-heading
+        margin: 0
+    p.entry-detail
+        margin: 0
 
 button
     background-color: color-main
@@ -437,6 +455,10 @@ button
         background-repeat: no-repeat
         background-position: center
         background-size: 14px
+
+.pinned-print-and-csv
+    float: right
+    margin-top: 7px
 
 //modal - thanks to w3schools
 .modal
@@ -600,6 +622,9 @@ for x in 1..12
 
     #sidebar
         display: none
+
+    .pinned-header
+        padding: 0 10px
 
 @media only screen and (min-width: 600px)
 

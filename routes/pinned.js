@@ -9,4 +9,8 @@ router.get('/', pinnedController.getPinned);
 
 router.post("/", pinnedController.populatePinnedEntries);
 
+router.post("/print", pinnedController.populatePinnedEntriesPrint);
+
+router.post("/csv", pinnedController.populatePinnedEntriesCSV);
+
 module.exports = router;

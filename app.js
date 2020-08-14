@@ -11,7 +11,6 @@ var baseRouter = require("./routes/base")
 var searchRouter = require('./routes/search');
 var aboutRouter = require('./routes/about');
 var pinnedRouter = require('./routes/pinned');
-var contactRouter = require('./routes/contact');
 var helpRouter = require('./routes/help');
 
 var app = express();
@@ -31,7 +30,6 @@ app.use('/', baseRouter);
 app.use('/search', searchRouter);
 app.use('/about', aboutRouter);
 app.use('/pinned', pinnedRouter);
-app.use('/contact', contactRouter);
 app.use('/help', helpRouter);
 
 // catch 404 and forward to error handler

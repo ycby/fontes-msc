@@ -1,7 +1,5 @@
 extends search
 
-//- block printcss
-//-     link(rel="stylesheet", type="text/css", media="print", href="/stylesheets/printentries.css")
 
 block resultstable
   div(class="row")
@@ -12,7 +10,7 @@ block resultstable
           //- -var tableUpperLimit = ta
           div(class="records-information")
               span #{recordcount.recordslowerlimit}-#{recordcount.recordsupperlimit} of #{recordcount.totalrecords} records
-              a(href="#") See all records
+              a(id="all-records" href="") See all records
           
           //-W3schools to the rescue again
           div(id="entries-container")

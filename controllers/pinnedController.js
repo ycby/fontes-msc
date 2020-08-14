@@ -1,6 +1,7 @@
 var async = require("async");
 var mongoose = require("mongoose")
 var helpers = require("./helpers")
+var stringify = require("csv-stringify")
 
 var BibPrime = require("../models/bibprime");
 var Entry = require("../models/entry");
@@ -53,6 +54,92 @@ exports.populatePinnedEntries = function(req, res) {
     }
 }
 
+exports.populatePinnedEntriesPrint = function(req, res) {
+
+    var pinnedEntries = JSON.parse(req.body.pinnedentries);
+
+    // console.log(pinnedEntries);
+
+    if (pinnedEntries.length == 0) {
+
+        //if no entries pinned
+        res.render("pinnedempty", {activepage: "pinned"});
+    } else {
+
+        //if has entries pinned
+        //foreach record, get the information
+
+        var mongooseIds = pinnedEntries.map(x => mongoose.Types.ObjectId(x));
+
+        Entry
+        .find({
+            "_id": {$in: mongooseIds}
+        })
+        .populate("header")
+        .populate("bibliography_prime")
+        .exec(function(err, results) {
+
+            if (err) throw err;
+
+            //got the results now need to group by target text, then source
+
+            var formattedResults = helpers.formatEntries(results);
+
+            var splitByTarget = splitEntriesByTarget(formattedResults);
+
+            splitByTarget = helpers.formatPinnedEntriesHeaderBibDate(splitByTarget);
+
+
+            res.render("printpinned", {activepage: "pinned", data: splitByTarget});
+
+        });
+    }
+}
+
+exports.populatePinnedEntriesCSV = function(req, res) {
+
+    var pinnedEntries = JSON.parse(req.body.pinnedentries);
+
+    // console.log(pinnedEntries);
+
+    if (pinnedEntries.length == 0) {
+
+        //if no entries pinned
+        res.render("pinnedempty", {activepage: "pinned"});
+    } else {
+
+        //if has entries pinned
+        //foreach record, get the information
+
+        var mongooseIds = pinnedEntries.map(x => mongoose.Types.ObjectId(x));
+
+        Entry
+        .find({
+            "_id": {$in: mongooseIds}
+        })
+        .populate("header")
+        .populate("bibliography_prime")
+        .exec(function(err, results) {
+
+            if (err) throw err;
+
+            res.setHeader("Content-Type", "text/csv");
+            res.setHeader("Content-Disposition", "attachment; filename=entries.csv");
+
+            stringify(helpers.formatCSVEntries(results), {header: true}).pipe(res);
+
+            // var formattedResults = helpers.formatEntries(results);
+            //
+            // var splitByTarget = splitEntriesByTarget(formattedResults);
+            //
+            // splitByTarget = helpers.formatPinnedEntriesHeaderBibDate(splitByTarget);
+            //
+            //
+            // res.render("printpinned", {activepage: "pinned", data: splitByTarget});
+
+        });
+    }
+}
 
 function splitEntriesByTarget(entries) {
 

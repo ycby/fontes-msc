@@ -1,0 +1,67 @@
+@media only screen
+    *
+        display: none
+
+@media print
+    *
+        box-sizing: border-box
+        font-family: "Cormorant Garamond", serif
+        color: black
+        margin: 0
+        padding: 0
+
+    body
+        background-color: white
+        font-size: 12px
+        border-bottom: black 3px solid
+
+    #top
+        border-bottom: black 3px solid
+        img
+            width: 125px
+            height: auto
+            margin-bottom: 5px
+        h1
+            font-size: 48px
+            float: right
+
+    .targets
+        border-bottom: black solid 2px
+        border-top: black solid 2px
+        padding: 10px 0
+        &:first-child
+            border-top: none
+        & + .sources
+            border-top: none
+
+    .sources
+        border-bottom: black solid 2px
+        border-top: black solid 2px
+        padding: 5px 0
+        & + .entries
+            border-top: none
+
+    .entries
+        border-top: black solid 1px
+        padding: 5px 0
+
+    .title
+        font-size: 14px
+
+    .bold
+        font-weight: bold
+
+    .italic
+        font-style: italic
+
+    span
+        padding-right: 8px
+
+    for x in 1..12
+        .offset-col-{x}
+            left: ((100/12) * x)%
+            position: relative
+    for x in 1..12
+        .col-{x}
+            width: ((100/12) * x) %
+            display: inline-block

@@ -6,6 +6,15 @@ $(document).ready(function() {
 
     //open and close accordions
     $(".accordion").click(accordionActive);
+
+    //put the right stuff for print and csv
+    $("#print-records").click(function(event) {
+        moveToPinned(event, "print");
+    });
+
+    $("#download-records").click(function(event) {
+        moveToPinned(event, "csv");
+    });
 });
 
 

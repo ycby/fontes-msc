@@ -125,12 +125,13 @@ nav ul li a:hover:not(.nav-active) {
   cursor: default;
   pointer-events: none;
 }
-#search-container-collasper {
+#search-container-collapser {
   background-image: url("/images/icons/arrow_drop_up-24px.svg");
   background-size: 48px;
   background-repeat: no-repeat;
   background-color: transparent;
   background-position: center;
+  color: rgba(0,0,0,0);
   border: none;
   cursor: pointer;
   outline: none;
@@ -250,10 +251,27 @@ nav ul li a:hover:not(.nav-active) {
   width: 25%;
 }
 footer {
-  margin-top: 3vh;
-  padding: 3vh 2vw;
+  margin-top: 5vh;
+  padding: 3vh 2vw 1.5vh;
   background-color: #2f536f;
   color: #fdfdfd;
+  font-size: 0.9125em;
+}
+footer div ul {
+  list-style-type: none;
+  padding-top: 5px;
+}
+footer div ul li {
+  padding: 3px 0px;
+}
+footer div ul:nth-child(1) {
+  text-align: left;
+}
+footer div ul:nth-child(2) {
+  text-align: center;
+}
+footer div ul:nth-child(3) {
+  text-align: center;
 }
 .pagination {
   display: inline-block;
@@ -310,7 +328,7 @@ footer {
   margin-top: 4vh;
 }
 .main-text-content {
-  margin-top: 4vh;
+  margin-top: 2vh;
   padding: 0 1vw;
   color: #6a6a6a;
 }
@@ -426,6 +444,12 @@ footer {
 .accordion-panel .entry-heading {
   font-weight: 600;
 }
+.accordion-panel p.entry-heading {
+  margin: 0;
+}
+.accordion-panel p.entry-detail {
+  margin: 0;
+}
 button {
   background-color: #2f536f;
   color: #fdfdfd;
@@ -468,6 +492,10 @@ button {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 14px;
+}
+.pinned-print-and-csv {
+  float: right;
+  margin-top: 7px;
 }
 .modal {
   display: none;
@@ -733,6 +761,9 @@ p {
   }
   #sidebar {
     display: none;
+  }
+  .pinned-header {
+    padding: 0 10px;
   }
 }
 @media only screen and (min-width: 600px) {

@@ -105,8 +105,14 @@ mixin entryAccordion(entry)
                       p(class="_id")= entry._id
                       
 block content
-  div(class="row")
-      h1(class="page-heading col-8 col-s-10 offset-col-2 offset-col-s-1") Pinned
+  div(class="row pinned-header")
+      div(class="row col-8 offset-col-2 col-s-10 offset-col-s-1")
+          h1(class="page-heading") Pinned
+      div(class="row col-8 offset-col-2 col-s-10 offset-col-s-1")
+          a(id="print-records" class="pinned-print-and-csv" href="print" target="_blank")
+              img(src="/images/icons/print-24px.svg" alt="Print records")
+          a(id="download-records" class="pinned-print-and-csv" href="./csv")
+              img(src="/images/icons/download_csv.svg" alt="Download records")
   div(class="row")
       div(class="col-8 offset-col-2 col-s-10 offset-col-s-1 main-text-content" role="main")
           

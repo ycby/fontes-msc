@@ -202,9 +202,9 @@ function tempFormatEntryFromHeader(entries) {
 
 function formatEntries(entries) {
 
-    var formattedEntries = []
+    var formattedEntries = [];
 
-    entries.forEach((entry, i) => {
+    entries.forEach((entry) => {
 
         var formattedEntry = {
             _id: entry._id,
@@ -293,6 +293,33 @@ function formatCiteInfo(header) {
     };
 }
 
+function formatPinnedEntriesHeaderBibDate(targets) {
+
+    targets.forEach((target) => {
+
+        // console.log(target[0]);
+        var tempHeader = {
+            _id: target[0]._id,
+            text_reference: target[0].text_reference,
+            text_author: target[0].text_author,
+            new_title: target[0].new_title,
+            text_title: target[0].text_title,
+            text_edition: target[0].text_edition,
+            contributor: target[0].contributor,
+            entries: target[0].entries,
+            transmission: target[0].transmission,
+            bibliography: target[0].bibliography,
+            date: moment(target[0].date).format("DD/MM/YYYY"),
+            __v: target[0].__v
+        }
+
+        target[0] = tempHeader;
+
+    });
+
+    return targets;
+}
+
 function interpretSigla(sigil) {
 
     // console.log(sigil);
@@ -348,6 +375,7 @@ module.exports = {
     formatCSVTargetsFromSource,
     formatCSVSourcesFromTarget,
     formatEntries,
+    formatPinnedEntriesHeaderBibDate,
     formatCSVEntries,
     formatCiteInfo,
     interpretSigla,
