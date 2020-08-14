@@ -333,7 +333,7 @@ footer div ul:nth-child(3) {
   color: #6a6a6a;
 }
 .main-text-content h2 {
-  text-decoration: 2px underline;
+  text-decoration: underline;
   margin: 2vh 0 1vh;
 }
 .main-text-content ul {
@@ -555,7 +555,7 @@ button {
   color: #6a6a6a;
 }
 .cite-button:hover {
-  background-color: secondary;
+  background-color: #7b99b0;
 }
 .hidden {
   display: none;
@@ -1019,7 +1019,7 @@ p {
     font-size: 14px;
   }
   #search-container form .form-block {
-    margin: none;
+    margin: 0;
   }
   #search-container form .form-block input {
     width: 95%;
