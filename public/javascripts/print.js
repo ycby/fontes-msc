@@ -1,1 +1,3 @@
-window.print();
+$(document).ready(function() {
+    window.print();
+});
