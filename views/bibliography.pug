@@ -54,7 +54,11 @@ block content
                         span #{recordcount.recordslowerlimit}-#{recordcount.recordsupperlimit} of #{recordcount.totalrecords} records
                         a(id="all-records" href="") See all records
                         
-                    
+                    div(class="row")
+                        a(id="print-records" class="float-right" href="print" target="_blank")
+                            img(src="/images/icons/print-24px.svg" alt="Print records")
+                        a(id="download-records" class="float-right" href="./csv")
+                            img(src="/images/icons/download_csv.svg" alt="Download records")
                     block tablecontent
                     
                     +pagination(pages)

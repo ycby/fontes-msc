@@ -16,6 +16,18 @@ $(document).ready(function() {
         $("form").submit();
     });
 
+    //print records & csv
+    var queryIndex = window.location.href.indexOf("?");
+
+    if (queryIndex != -1) {
+
+        var queryString = window.location.href.substring(window.location.href.indexOf("?"));
+        var printQuery = $("#print-records").attr("href") + queryString;
+        var downloadQuery = $("#download-records").attr("href") + queryString;
+        $("#print-records").attr("href", printQuery);
+        $("#download-records").attr("href", downloadQuery);
+    }
+
     //bibliography modals
     var bibliographyRows = $(".bibliography-row");
     var modals = $(".modal");

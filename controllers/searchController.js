@@ -18,7 +18,7 @@ const ENTRYSTEPSIZE = 10;
 
 exports.index = function(req, res) {
 
-    console.log(req.query)
+    //console.log(req.query)
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
     if (req.query.texttype == "source-text") {
@@ -33,7 +33,7 @@ exports.index = function(req, res) {
 function getTargetTexts(pageNo, pageToRender, reqQuery, res) {
 
     var query = queryBuilderHeader(reqQuery.title, reqQuery.author, reqQuery.edition, reqQuery.reference);
-    // console.log(reqQuery);
+    // //console.log(reqQuery);
 
     //force reqQuery to init on target-text
     reqQuery.texttype = "target-text";
@@ -190,7 +190,7 @@ exports.getSourceSuggestions = function(req, res) {
 
     var query = {};
 
-    console.log(query);
+    //console.log(query);
 
     if (title != "") {
         query.title = new RegExp("^" + title, "i");
@@ -285,7 +285,7 @@ exports.getEntries = function(req, res) {
         renderedInfo.headerinfo = results.targetInfo.header;
         renderedInfo.sourceinfo = results.sourceInfo;
 
-        console.log(renderedInfo.citeinfo);
+        //console.log(renderedInfo.citeinfo);
 
         res.render("searchentries", renderedInfo);
     });
@@ -318,18 +318,18 @@ exports.getSourcesForTargetText = function(req, res) {
                     BibPrime
                     .populate(aggregateResults, {path: "_id"},
                     function(err, populatedBibPrimes) {
-                        // console.log(populatedHeaders[0].url);
+                        // //console.log(populatedHeaders[0].url);
                         aggregateCallback(null, populatedBibPrimes);
                     });
                 }
             ], function(err, populatedWithCounts) {
-                // console.log(populatedWithCounts);
+                // //console.log(populatedWithCounts);
                 callback(null, populatedWithCounts);
             });
         }
     }, function(err, results) {
 
-        // console.log(results.records);
+        // //console.log(results.records);
 
         var newStepSize = req.query.stepSize == null ? STEPSIZE : results.records.length;
 
@@ -372,18 +372,18 @@ exports.getPrintSourcesForTargetText = function(req, res) {
                     BibPrime
                     .populate(aggregateResults, {path: "_id"},
                     function(err, populatedBibPrimes) {
-                        // console.log(populatedHeaders[0].url);
+                        // //console.log(populatedHeaders[0].url);
                         aggregateCallback(null, populatedBibPrimes);
                     });
                 }
             ], function(err, populatedWithCounts) {
-                // console.log(populatedWithCounts);
+                // //console.log(populatedWithCounts);
                 callback(null, populatedWithCounts);
             });
         }
     }, function(err, results) {
 
-        // console.log(results.records);
+        // //console.log(results.records);
 
         var newStepSize = req.query.stepSize == null ? STEPSIZE : results.records.length;
 
@@ -426,18 +426,18 @@ exports.getCSVSourcesForTargetText = function(req, res) {
                     BibPrime
                     .populate(aggregateResults, {path: "_id"},
                     function(err, populatedBibPrimes) {
-                        // console.log(populatedHeaders[0].url);
+                        // //console.log(populatedHeaders[0].url);
                         aggregateCallback(null, populatedBibPrimes);
                     });
                 }
             ], function(err, populatedWithCounts) {
-                // console.log(populatedWithCounts);
+                // //console.log(populatedWithCounts);
                 callback(null, populatedWithCounts);
             });
         }
     }, function(err, results) {
 
-        // console.log(results.records);
+        // //console.log(results.records);
 
         var newStepSize = req.query.stepSize == null ? STEPSIZE : results.records.length;
 
@@ -475,12 +475,12 @@ exports.getTargetsForSourceText = function(req, res) {
                     Header
                     .populate(aggregateResults, {path: "_id"},
                     function(err, populatedHeaders) {
-                        // console.log(populatedHeaders[0].url);
+                        // //console.log(populatedHeaders[0].url);
                         aggregateCallback(null, populatedHeaders);
                     });
                 }
             ], function(err, populatedWithCounts) {
-                // console.log(populatedWithCounts);
+                // //console.log(populatedWithCounts);
                 callback(null, populatedWithCounts);
             });
         }
@@ -488,7 +488,7 @@ exports.getTargetsForSourceText = function(req, res) {
 
         if (err) throw err;
 
-        // console.log(results.records);
+        // //console.log(results.records);
 
         var newStepSize = req.query.stepSize == null ? STEPSIZE : results.records.length;
 
@@ -531,12 +531,12 @@ exports.getPrintTargetsForSourceText = function(req, res) {
                     Header
                     .populate(aggregateResults, {path: "_id"},
                     function(err, populatedHeaders) {
-                        // console.log(populatedHeaders[0].url);
+                        // //console.log(populatedHeaders[0].url);
                         aggregateCallback(null, populatedHeaders);
                     });
                 }
             ], function(err, populatedWithCounts) {
-                // console.log(populatedWithCounts);
+                // //console.log(populatedWithCounts);
                 callback(null, populatedWithCounts);
             });
         }
@@ -544,7 +544,7 @@ exports.getPrintTargetsForSourceText = function(req, res) {
 
         if (err) throw err;
 
-        // console.log(results.records);
+        // //console.log(results.records);
 
         var newStepSize = req.query.stepSize == null ? STEPSIZE : results.records.length;
 
@@ -587,12 +587,12 @@ exports.getCSVTargetsForSourceText = function(req, res) {
                     Header
                     .populate(aggregateResults, {path: "_id"},
                     function(err, populatedHeaders) {
-                        // console.log(populatedHeaders[0].url);
+                        // //console.log(populatedHeaders[0].url);
                         aggregateCallback(null, populatedHeaders);
                     });
                 }
             ], function(err, populatedWithCounts) {
-                // console.log(populatedWithCounts);
+                // //console.log(populatedWithCounts);
                 callback(null, populatedWithCounts);
             });
         }
@@ -632,7 +632,7 @@ exports.printEntries = function(req, res) {
 
         if (err) throw err;
 
-        // console.log(results)
+        // //console.log(results)
 
         var renderedInfo = helpers.formatRender(err,
                         activepage,
@@ -646,7 +646,7 @@ exports.printEntries = function(req, res) {
 
         renderedInfo.citeinfo = helpers.formatCiteInfo(results.targetInfo);
 
-        console.log(renderedInfo);
+        //console.log(renderedInfo);
 
         res.render("printentries", renderedInfo);
     });

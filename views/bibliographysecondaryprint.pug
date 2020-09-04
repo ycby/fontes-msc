@@ -1,0 +1,23 @@
+html
+  head
+      link(href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap", rel="stylesheet")
+      link(rel="stylesheet", type="text/css", href="/stylesheets/printbibliography.css")
+
+body
+  div(id="top")
+      img(src="/images/logo.png", alt="Logo for Fontes Anglo-Saxonici")
+      h1 Bibliography
+  div(id="results")
+      table
+          thead
+              th Name and Year
+              th Details
+              th Date
+          tbody
+              each record in tabledata
+                  tr
+                      td= record.nameandyear
+                      td= record.details
+                      td= record.date
+                      
+  script(src="/javascripts/print.js")

@@ -253,9 +253,9 @@ nav
             width: 25%
     #table-2-col thead th
         &:nth-child(1)
-            width: 75%
+            width: 85%
         &:nth-child(2)
-            width: 25%
+            width: 15%
 
 //text details
 .texts-details
@@ -350,9 +350,10 @@ footer
 
 //sidebar
 #sidebar
-    position: fixed;
+    position: sticky;
     border: 2px solid color-main
     margin-top: 4vh
+    bottom: 600px
     .sidebar-header
         background-color: color-main
         color: color-light-text
@@ -546,6 +547,9 @@ button
                         padding: 3px 20px 3px 0
                         vertical-align: top
 
+
+.float-right
+    float: right
 
 .cite-box
     border: 2px solid color-grey

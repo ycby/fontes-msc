@@ -258,10 +258,10 @@ nav ul li a:hover:not(.nav-active) {
   width: 25%;
 }
 #search-results-container #table-2-col thead th:nth-child(1) {
-  width: 75%;
+  width: 85%;
 }
 #search-results-container #table-2-col thead th:nth-child(2) {
-  width: 25%;
+  width: 15%;
 }
 .texts-details {
   border: 2px solid #707070;
@@ -368,9 +368,10 @@ footer div ul:nth-child(3) {
   padding: 0.5vh 2vw;
 }
 #sidebar {
-  position: fixed;
+  position: sticky;
   border: 2px solid #2f536f;
   margin-top: 4vh;
+  bottom: 600px;
 }
 #sidebar .sidebar-header {
   background-color: #2f536f;
@@ -591,6 +592,9 @@ button {
 .modal .modal-content .modal-body #citation-table tr td {
   padding: 3px 20px 3px 0;
   vertical-align: top;
+}
+.float-right {
+  float: right;
 }
 .cite-box {
   border: 2px solid #707070;

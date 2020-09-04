@@ -334,6 +334,7 @@ function formatTargetBibliographies(targets) {
             author: target.author,
             title: target.title,
             textedition: target.text_edition,
+            edition: target.text_edition,
             publicationdetails: target.publication_details
         });
     });
