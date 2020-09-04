@@ -1,0 +1,48 @@
+extends bibliography
+
+mixin primarymodal(info, index)
+    div(id=("modal-" + index) class="modal")
+        div(class="modal-content")
+            div(class="modal-header")
+                span(class="modal-close") &times;
+                h2 Source Text Information
+            div(class="modal-body")
+                table(id="citation-table" class="bibliography-table")
+                    tr
+                        td #[strong Title:]
+                        td= info.title
+                    tr
+                        td #[strong Author:]
+                        td= info.author
+                    tr
+                        td #[strong Edition:]
+                        td= info.edition
+                    tr
+                        td #[strong Location Example:]
+                        td= info.locationexample
+                    tr
+                        td #[strong Location Meaning:]
+                        td= info.referencecomment
+                    tr
+                        td #[strong Publication Details:]
+                        td= info.publicationdetails
+                    tr
+                        td #[strong Date Added:]
+                        td= info.date
+
+block tablecontent
+    table(id="table-3-col" class="texts-results-table")
+        thead
+            tr
+                th Title
+                th Author
+                th Edition
+        tbody
+            each record, index in tabledata
+                tr(id=("bibliography-row-" + index) class="bibliography-row")
+                    td= record.title
+                    td= record.author
+                    td= record.edition
+                    
+    each record, index in tabledata
+        +primarymodal(record, index)

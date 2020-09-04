@@ -106,6 +106,10 @@ function formatBibPrime(records) {
             title: record.title,
             author: record.author,
             edition: record.db_edition,
+            locationexample: record.location_example,
+            referencecomment: record.reference_comment,
+            publicationdetails: record.publication_details,
+            date: moment(record.date).format("DD/MM/YYYY"),
             url: record.url
         });
     });
@@ -320,6 +324,39 @@ function formatPinnedEntriesHeaderBibDate(targets) {
     return targets;
 }
 
+function formatTargetBibliographies(targets) {
+
+    var formattedTargets = [];
+
+    targets.forEach((target) => {
+
+        formattedTargets.push({
+            author: target.author,
+            title: target.title,
+            textedition: target.text_edition,
+            publicationdetails: target.publication_details
+        });
+    });
+
+    return formattedTargets;
+}
+
+function formatSecondaryBibliographies(secondaries) {
+
+    var formattedSecondaries = [];
+
+    secondaries.forEach((secondary) => {
+
+        formattedSecondaries.push({
+            nameandyear: secondary.name_and_year,
+            details: secondary.details,
+            date: moment(secondary.date).format("DD/MM/YYYY")
+        });
+    });
+
+    return formattedSecondaries;
+}
+
 function interpretSigla(sigil) {
 
     // console.log(sigil);
@@ -363,6 +400,12 @@ function documentById(model, id) {
     return model.findById(id);
 }
 
+//regex
+//https://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+function escapeRegex(string) {
+    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+
 module.exports = {
     formatRender,
     formatSuggestions,
@@ -378,8 +421,11 @@ module.exports = {
     formatPinnedEntriesHeaderBibDate,
     formatCSVEntries,
     formatCiteInfo,
+    formatTargetBibliographies,
+    formatSecondaryBibliographies,
     interpretSigla,
     documentSearch,
     documentCount,
-    documentById
+    documentById,
+    escapeRegex
 }

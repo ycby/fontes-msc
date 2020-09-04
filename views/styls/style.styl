@@ -4,7 +4,7 @@ color-main = #2F536F
 color-secondary = #7B99B0
 color-nav-selected = #F3EBDE
 color-nav-hover = #EAEAEA
-color-main-text = #6A6A6A
+color-main-text = #545454
 color-light-text = #FDFDFD
 color-hyperlink = #006E76
 color-table-light-background = #FDFDFD
@@ -118,6 +118,7 @@ nav
                     background-color: color-nav-hover
                 &:active
                     background-color: color-secondary
+
         fieldset
             border: none
             label
@@ -135,6 +136,8 @@ nav
                 background-color: color-nav-selected
                 cursor: default
                 pointer-events: none
+#submit-container
+    vertical-align: top
 
 #search-container-collapser
     background-image: url("/images/icons/arrow_drop_up-24px.svg")
@@ -165,7 +168,7 @@ nav
 
 //results header section
 #search-results-heading-background
-    box-shadow: 2px -4px 8px -2px rgba(0, 0, 0, 0.4)
+    box-shadow: 2px -4px 8px -4px rgba(0, 0, 0, 0.4)
     z-index: 1
 #search-results-heading-container
     padding-top: 2vh
@@ -185,9 +188,12 @@ nav
         img
             float: right
             width: 16px
+
+
 //search results container
 #search-results-container
     padding: 3vh 0
+
     .records-information
         float: right
         margin: 8px 0
@@ -211,19 +217,22 @@ nav
                 padding: 3px 10px 2px
         tbody
             border-bottom: 5px solid color-main
+            color: color-main-text
             tr
+                cursor: pointer
                 background-color: color-table-light-background
                 &:nth-child(even)
                     background-color: color-table-dark-background
                 &:hover
                     background-color: color-nav-hover
                 td
+                    padding: 3px 10px 2px
                     a
                         text-decoration: none
                         color: color-main-text
                         display: inline-block
                         width: 100%
-                        padding: 3px 10px 2px
+
     #table-4-col thead th
         &:nth-child(1)
             width: 45%
@@ -240,6 +249,24 @@ nav
             width: 25%
         &:nth-child(3)
             width: 25%
+    #table-2-col thead th
+        &:nth-child(1)
+            width: 75%
+        &:nth-child(2)
+            width: 25%
+
+//text details
+.texts-details
+    border: 2px solid color-grey
+    & > div
+        vertical-align: top
+        display: inline-block
+        h3
+            padding: 3px 5px
+.text-label
+    padding: 5px 0
+    background-color: color-grey
+    color: white
 
 //footer here
 footer
@@ -414,6 +441,22 @@ footer
     p.entry-detail
         margin: 0
 
+.text-accordion
+    background-color: color-grey
+    color: color-light-text
+    font-size: 1em
+    margin-top: 3px
+    padding: 0
+    span
+        padding: 1.1vh 0.225vw
+
+.text-accordion-panel
+    border: none
+    margin-bottom: 0
+    span
+        vertical-align: top
+        padding-top: 5px
+
 button
     background-color: color-main
     color: color-light-text
@@ -490,17 +533,16 @@ button
         .modal-body
             background-color: white
             color: color-main-text
-            padding: 6vh 6vw 3vh
+            padding: 4vh 6vw
             button
                 float: right
             #citation-table
                 margin: 2vh 0
                 tr
                     background-color: white
-                    padding: 2px 0
                     td
-                        padding-right: 20px
-
+                        padding: 3px 20px 3px 0
+                        vertical-align: top
 
 
 .cite-box
@@ -521,6 +563,9 @@ p
 
 .example-record
     margin: 2vh 0
+
+.italic
+    font-style: italic
 
 //responsive
 
@@ -703,7 +748,6 @@ for x in 1..12
     #search-container
         form
             .form-block
-                margin: 0
                 input
                     width: 95%
         #submit-query-button
@@ -784,6 +828,11 @@ for x in 1..12
                 width: 25%
             &:nth-child(3)
                 width: 25%
+
+        .bibliography-table
+            table-layout: fixed
+            tbody tr td:nth-child(1)
+                width: 150px
 
     .pin
         background-size: contain

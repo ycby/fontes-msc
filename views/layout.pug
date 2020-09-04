@@ -1,13 +1,111 @@
 doctype html
+
+//- with a little help from https://www.w3schools.com/howto/howto_css_pagination.asp
+mixin pagination(pages)
+  div(class="pagination")
+      
+      //- prev
+      a(class=(recordcount.currentpage == 1 ? "pagination-disabled" : "") href="#") &laquo; Prev
+      
+      //- pages
+      if recordcount.totalpages == 1
+          a(class="pagination-page-links pagination-active" href="#") 1
+      else if recordcount.totalpages <= 5 
+          -for(var x = 1; x <= recordcount.totalpages; x ++)
+              a(class=("pagination-page-links" + (recordcount.currentpage == x ? " pagination-active" : "")) href="#")= x
+      else
+          if recordcount.currentpage <= 3
+              //- do the first 3 pages
+              -for(var x = 1; x <= 4; x ++)
+                  a(class=("pagination-page-links" + (recordcount.currentpage == x ? " pagination-active" : "")) href="#")= x
+              //- then add the ...
+              span(class="pagination-page-links") ...
+              //- then add the last page
+              a(class="pagination-page-links" href="#")= recordcount.totalpages
+          else if recordcount.currentpage <= recordcount.totalpages - 3
+              a(class="pagination-page-links" href="#")= 1
+              span(class="pagination-page-links") ...
+              -for(var x = recordcount.currentpage - 1; x - 1 <= recordcount.currentpage; x ++)
+                  a(class=("pagination-page-links" + (recordcount.currentpage == x ? " pagination-active" : "")) href="#")= x
+              //- ... page
+              span(class="pagination-page-links") ...
+              //- then add the last page
+              a(class="pagination-page-links" href="#")= recordcount.totalpages
+          else
+              //- first page
+              a(class="pagination-page-links" href="#") 1
+              //- then ...
+              span(class="pagination-page-links") ...
+              //- then the last 3 pages
+              -for(var x = recordcount.totalpages - 3; x <= recordcount.totalpages; x ++)
+                  a(class=("pagination-page-links" + (recordcount.currentpage == x ? " pagination-active" : "")) href="#")= x
+                  
+      //- next
+      a(class=(recordcount.currentpage == recordcount.totalpages ? "pagination-disabled" : "") href="#") Next &raquo;
+
+mixin breadcrumbs()
+  div(class="breadcrumbs")
+      ul
+          li
+              a(id="search-breadcrumb" href="#") Search:
+          if (searchquery.texttype == "target-text")
+              if (selectedtexts.targettext.title != "")
+                  li
+                      a(href=selectedtexts.targettext.url + "?texttype=" + searchquery.texttype)= selectedtexts.targettext.title
+              if (selectedtexts.sourcetext.title != "")
+                  li
+                      a(href=selectedtexts.sourcetext.url + "?texttype=" + searchquery.texttype)= selectedtexts.sourcetext.title
+          else
+              if (selectedtexts.sourcetext.title != "")
+                  li
+                      a(href=selectedtexts.sourcetext.url + "?texttype=" + searchquery.texttype)= selectedtexts.sourcetext.title
+              if (selectedtexts.targettext.title != "")
+                  li
+                      a(href=selectedtexts.targettext.url + "?texttype=" + searchquery.texttype)= selectedtexts.targettext.title
+        
+//- praise w3schools
+mixin citemodal(information, citeInfo, index)
+    div(id=("citemodal-" + index) class="modal cite")
+        div(class="modal-content")
+            div(class="modal-header")
+                span(class="modal-close") &times;
+                h2 Cite Record
+            div(class="modal-body")
+                span For referencing this record, please use the following:
+                button(class="copy") Copy
+                div(class="cite-box")
+                    p #{citeInfo.contributor}, "#{citeInfo.title} (#{information.textreference})", #{information.date},  Fontes Anglo-Saxonici: World Wide Web Register, Temp, accessed #{citeInfo.accessed}
+                span Alternatively, please use the following information:
+                table(id="citation-table")
+                    tr
+                        td #[strong Contributor:]
+                        td= citeInfo.contributor
+                    tr
+                        td #[strong Record:]
+                        td "The Sources of #{citeInfo.title} (#{information.textreference})"
+                    tr
+                        td #[strong Year Published:]
+                        td= information.date
+                    tr
+                        td #[strong Project Name:]
+                        td Fontes Anglo-Saxonici: World Wide Web Register
+                    tr
+                        td #[strong Website:]
+                        td Temp
+                    tr
+                        td #[strong Date Accessed:]
+                        td= citeInfo.accessed
+                    
+
 html(lang="en")
   head
     meta(name="viewport", content="width=device-width, initial-scale = 1.0")
     meta(charset="UTF-8")
-    link(rel='stylesheet', type="text/css", media="screen" href='/stylesheets/style.css')
+    link(rel='stylesheet', type="text/css", media="screen" href='/stylesheets/minified/style-min.css')
     link(href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap", rel="stylesheet")
     link(rel="icon", type="image/png", href="/images/icons/favicon.png")
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
-    script(src="/javascripts/all.js")
+    script(src="/javascripts/minified/all-min.js")
     block pagehead
         
   body

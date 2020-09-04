@@ -6,6 +6,7 @@ var stringify = require("csv-stringify")
 
 var BibPrime = require("../models/bibprime");
 var BibSec = require("../models/bibsec");
+var BibText = require("../models/bibtext");
 var Entry = require("../models/entry");
 var Header = require("../models/header");
 
@@ -27,6 +28,61 @@ exports.index = function(req, res) {
 
         getTargetTexts(pageNo, "search", req.query, res);
     }
+}
+
+function getTargetTexts(pageNo, pageToRender, reqQuery, res) {
+
+    var query = queryBuilderHeader(reqQuery.title, reqQuery.author, reqQuery.edition, reqQuery.reference);
+    // console.log(reqQuery);
+
+    //force reqQuery to init on target-text
+    reqQuery.texttype = "target-text";
+
+    async.parallel({
+        recordcount: function(callback) {
+            helpers.documentCount(Header, query, callback);
+        },
+        records: function(callback) {
+            helpers.documentSearch(Header, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {new_title: 1}).exec(callback);
+        }
+    }, function(err, results) {
+        res.render(pageToRender, helpers.formatRender(err,
+                                            activepage,
+                                            reqQuery.stepSize == null ? STEPSIZE : results.recordcount,
+                                            reqQuery,
+                                            pageNo,
+                                            helpers.formatHeader(results.records),
+                                            results.recordcount,
+                                            {title: "", url: ""},
+                                            {title: "", url: ""}));
+    });
+}
+
+function getSourceTexts(pageNo, pageToRender, reqQuery, res) {
+
+    var query = queryBuilderBibPrime(reqQuery.title, reqQuery.author, reqQuery.edition);
+
+    async.parallel({
+        recordcount: function(callback) {
+            helpers.documentCount(BibPrime, query, callback);
+        },
+        records: function(callback) {
+            helpers.documentSearch(BibPrime, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {title: 1}).exec(callback);
+        }
+    }, function(err, results) {
+
+        if (err) throw err;
+
+        res.render(pageToRender, helpers.formatRender(err,
+                                            activepage,
+                                            reqQuery.stepSize == null ? STEPSIZE : results.recordcount,
+                                            reqQuery,
+                                            pageNo,
+                                            helpers.formatBibPrime(results.records),
+                                            results.recordcount,
+                                            {title: "", url: ""},
+                                            {title: "", url: ""}))
+    });
 }
 
 exports.getPrint = function(req, res) {
@@ -148,44 +204,56 @@ exports.getSourceSuggestions = function(req, res) {
     });
 }
 
-function getTargetTexts(pageNo, pageToRender, reqQuery, res) {
-
-    var query = queryBuilderHeader(reqQuery.title, reqQuery.author, reqQuery.edition, reqQuery.reference);
-    // console.log(reqQuery);
-
-    //force reqQuery to init on target-text
-    reqQuery.texttype = "target-text";
-
-    async.parallel({
-        recordcount: function(callback) {
-            helpers.documentCount(Header, query, callback);
-        },
-        records: function(callback) {
-            helpers.documentSearch(Header, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {new_title: 1}).exec(callback);
-        }
-    }, function(err, results) {
-        res.render(pageToRender, helpers.formatRender(err,
-                                            activepage,
-                                            reqQuery.stepSize == null ? STEPSIZE : results.recordcount,
-                                            reqQuery,
-                                            pageNo,
-                                            helpers.formatHeader(results.records),
-                                            results.recordcount,
-                                            {title: "", url: ""},
-                                            {title: "", url: ""}));
-    });
-}
-
 exports.getEntries = function(req, res) {
 
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
     async.parallel({
+        // targetInfo: function(callback) {
+        //     Header
+        //     .findById(req.params.targetid)
+        //     .exec(function(err, header) {
+        //         //got the header information, find the bibliography text
+        //         BibText
+        //         .find({"title": header.text_title, "author": header.text_author.toUpperCase(), "text_edition": header.text_edition})
+        //         .
+        //     });
+        // },
         targetInfo: function(callback) {
-            Header
-            .findById(req.params.targetid)
-            .exec(callback);
-        },
+            async.waterfall([
+                function(targetCallback) {
+                    Header
+                    .findById(req.params.targetid)
+                    .exec(function(err, header) {
+
+                        if (err) throw err;
+
+                        targetCallback(null, header);
+                    });
+                },
+                function(header, targetCallback) {
+
+                    var newAuthor = helpers.escapeRegex(header.text_author);
+
+                    BibText
+                    .findOne({title: header.text_title, author: new RegExp(newAuthor, "i"), text_edition: header.text_edition})
+                    .exec(function(err, targetDetails) {
+
+                        if (err) throw err;
+
+                        targetCallback(null, header, targetDetails);
+                    });
+                }
+            ], function(err, header, targetDetails) {
+
+                var headerInformation = {
+                    header: header,
+                    details: targetDetails
+                }
+
+                callback(null, headerInformation);
+            }
+        )},
         sourceInfo: function(callback) {
             BibPrime
             .findById(req.params.sourceid)
@@ -209,41 +277,17 @@ exports.getEntries = function(req, res) {
                         pageNo,
                         helpers.formatEntries(results.entries).slice((pageNo - 1) * newStepSize, pageNo * newStepSize),
                         results.entries.length,
-                        {title: results.targetInfo.text_title, author: results.targetInfo.text_author, edition: results.targetInfo.text_edition, contributor: results.targetInfo.contributor, date: results.targetInfo.date, url: results.targetInfo.url},
+                        {title: results.targetInfo.header.text_title, author: results.targetInfo.header.text_author, edition: results.targetInfo.header.text_edition, contributor: results.targetInfo.header.contributor, date: results.targetInfo.header.date, url: results.targetInfo.header.url},
                         {title: results.sourceInfo.title, author: results.sourceInfo.author, edition: results.sourceInfo.db_edition, url: results.sourceInfo.url});
 
-        renderedInfo.citeinfo = helpers.formatCiteInfo(results.targetInfo);
+        renderedInfo.citeinfo = helpers.formatCiteInfo(results.targetInfo.header);
+        renderedInfo.sourcereadinfo = results.sourceInfo.reference_comment;
+        renderedInfo.headerinfo = results.targetInfo.header;
+        renderedInfo.sourceinfo = results.sourceInfo;
 
-        console.log(renderedInfo);
+        console.log(renderedInfo.citeinfo);
 
         res.render("searchentries", renderedInfo);
-    });
-}
-
-function getSourceTexts(pageNo, pageToRender, reqQuery, res) {
-
-    var query = queryBuilderBibPrime(reqQuery.title, reqQuery.author, reqQuery.edition);
-
-    async.parallel({
-        recordcount: function(callback) {
-            helpers.documentCount(BibPrime, query, callback);
-        },
-        records: function(callback) {
-            helpers.documentSearch(BibPrime, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {title: 1}).exec(callback);
-        }
-    }, function(err, results) {
-
-        if (err) throw err;
-
-        res.render(pageToRender, helpers.formatRender(err,
-                                            activepage,
-                                            reqQuery.stepSize == null ? STEPSIZE : results.recordcount,
-                                            reqQuery,
-                                            pageNo,
-                                            helpers.formatBibPrime(results.records),
-                                            results.recordcount,
-                                            {title: "", url: ""},
-                                            {title: "", url: ""}))
     });
 }
 
@@ -644,16 +688,16 @@ function queryBuilderHeader(title, author, edition, reference) {
     var query = {};
 
     if (title != null && title != "") {
-        query.text_title = new RegExp(escapeRegex(title), "i");
+        query.text_title = new RegExp(helpers.escapeRegex(title), "i");
     }
     if (author != null && author != "") {
-        query.text_author = new RegExp(escapeRegex(author), "i");
+        query.text_author = new RegExp(helpers.escapeRegex(author), "i");
     }
     if (edition != null && edition != "") {
-        query.text_edition =  new RegExp(escapeRegex(edition), "i");
+        query.text_edition =  new RegExp(helpers.escapeRegex(edition), "i");
     }
     if (reference != null && reference != "") {
-        query.text_reference = new RegExp(escapeRegex(reference), "i");
+        query.text_reference = new RegExp(helpers.escapeRegex(reference), "i");
     }
 
     return query;
@@ -664,13 +708,13 @@ function queryBuilderBibPrime(title, author, edition, reference) {
     var query = {};
 
     if (title != null && title != "") {
-        query.title = new RegExp(escapeRegex(title), "i");
+        query.title = new RegExp(helpers.escapeRegex(title), "i");
     }
     if (author != null && author != "") {
-        query.author = new RegExp(escapeRegex(author), "i");
+        query.author = new RegExp(helpers.escapeRegex(author), "i");
     }
     if (edition != null && edition != "") {
-        query.db_edition =  new RegExp(escapeRegex(edition), "i");
+        query.db_edition =  new RegExp(helpers.escapeRegex(edition), "i");
     }
 
     return query;
@@ -697,9 +741,4 @@ function sortByAuthorHeader(e1, e2) {
 function sortByNewTitleHeader(e1, e2) {
 
     return e1._id.new_title.localeCompare(e2._id.new_title);
-}
-
-//https://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
-function escapeRegex(string) {
-    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 }

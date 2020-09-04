@@ -99,20 +99,20 @@ $(document).ready(function() {
 
     //modal for citation
     var citeButtons = $(".cite-button");
-    var citeModals = $(".modal.cite");
-    var citeModalCloses = $(".modal-close");
+    var modals = $(".modal");
+    var modalCloses = $(".modal-close");
 
     citeButtons.click(function() {
-        citeModals.eq(getCiteButtonNumber($(this))).show();
+        modals.eq(getCiteButtonNumber($(this))).show();
     });
 
-    citeModalCloses.click(function() {
-        citeModals.hide();
+    modalCloses.click(function() {
+        modals.hide();
     });
 
     $(window).click(function(e) {
         if (e.target.className.match(/(modal )/)) {
-            citeModals.hide();
+            modals.hide();
         }
     });
 });

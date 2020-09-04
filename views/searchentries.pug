@@ -1,9 +1,77 @@
 extends search
 
+mixin primarymodal(info, index)
+    div(id=("modal-" + index) class="modal")
+        div(class="modal-content")
+            div(class="modal-header")
+                span(class="modal-close") &times;
+                h2 Primary Text Information
+            div(class="modal-body")
+                table(id="citation-table")
+                    tr
+                        td #[strong Title:]
+                        td= info.title
+                    tr
+                        td #[strong Author:]
+                        td= info.author
+                    tr
+                        td #[strong Edition:]
+                        td= info.edition
+                    tr
+                        td #[strong Location Example:]
+                        td= info.locationexample
+                    tr
+                        td #[strong Location Meaning:]
+                        td= info.referencecomment
+                    tr
+                        td #[strong Publication Details:]
+                        td= info.publicationdetails
+                    tr
+                        td #[strong Date Added:]
+                        td= info.date
 
 block resultstable
   div(class="row")
       div(id="search-results-container" class="col-8 offset-col-2 col-s-8 offset-col-s-2")
+          
+          div(class="row texts-details")
+              div(class="col-12 row")
+                  h3(class="col-12") Additional Details of Texts
+              div(class="col-12 row")
+                  button(class="accordion text-accordion col-12 row")
+                      span(class="italic col-11 col-s-11 col-xs-10 text-label") Target Text
+                      span(class="col-1 col-s-1 col-xs-2 entry-arrow")
+                  div(class="row accordion-panel text-accordion-panel")
+                      div(class="row col-12 col-s-12")
+                          span(class="col-2 col-s-2 col-xs-3") Author:
+                          span(class="col-9 col-s-9 col-xs-8")= headerinfo.text_author
+                      div(class="row col-12 col-12")
+                          span(class="col-2 col-s-2 col-xs-3") Edition:
+                          span(class="col-9 col-s-9 col-xs-8")= headerinfo.text_edition
+                      div(class="row col-12 col-s-12")
+                          span(class="col-2 col-s-2 col-xs-3") Transmission:
+                          span(class="col-9 col-s-9 col-xs-8")= headerinfo.transmission
+                      div(class="row col-12 col-s-12")
+                          span(class="col-2 col-s-2 col-xs-3") Bibliography:
+                          span(class="col-9 col-s-9 col-xs-8")= headerinfo.bibliography
+                      
+              div(class="col-12 row")
+                  button(class="accordion text-accordion col-12 row")
+                      span(class="italic col-11 col-s-11 col-xs-10 text-label") Source Text
+                      span(class="col-1 col-s-1 col-xs-2 entry-arrow")
+                  div(class="row accordion-panel text-accordion-panel")
+                      div(class="row col-12 col-s-12")
+                          span(class="col-2 col-s-2 col-xs-3") Author:
+                          span(class="col-9 col-s-9 col-xs-8")= sourceinfo.author
+                      div(class="row col-12 col-s-12")
+                          span(class="col-2 col-s-2 col-xs-3") Edition:
+                          span(class="col-9 col-s-9 col-xs-8")= sourceinfo.db_edition
+                      div(class="row col-12 col-s-12")
+                          span(class="col-2 col-s-2 col-xs-3") Publication Details:
+                          span(class="col-9 col-s-9 col-xs-8")= sourceinfo.publication_details
+                      div(class="row col-12 col-s-12")
+                          span(class="col-2 col-s-2 col-xs-3") Location Meaning:
+                          span(class="col-9 col-s-9 col-xs-8")= sourceinfo.reference_comment
 
           +pagination(pages)
               

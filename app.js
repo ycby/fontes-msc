@@ -12,6 +12,7 @@ var searchRouter = require('./routes/search');
 var aboutRouter = require('./routes/about');
 var pinnedRouter = require('./routes/pinned');
 var helpRouter = require('./routes/help');
+var bibliographyRouter = require('./routes/bibliographies');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use('/search', searchRouter);
 app.use('/about', aboutRouter);
 app.use('/pinned', pinnedRouter);
 app.use('/help', helpRouter);
+app.use('/bibliography', bibliographyRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

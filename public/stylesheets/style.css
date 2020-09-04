@@ -41,7 +41,7 @@ nav ul li a {
   min-height: 36px;
   text-align: center;
   text-decoration: none;
-  color: #6a6a6a;
+  color: #545454;
 }
 nav ul li a:hover:not(.nav-active) {
   background-color: #eaeaea;
@@ -107,7 +107,7 @@ nav ul li a:hover:not(.nav-active) {
 #search-container form fieldset label {
   text-align: center;
   background-color: #fff;
-  color: #6a6a6a;
+  color: #545454;
   padding: 3px 3vw;
   border: #707070 solid 1px;
 }
@@ -124,6 +124,9 @@ nav ul li a:hover:not(.nav-active) {
   background-color: #f3ebde;
   cursor: default;
   pointer-events: none;
+}
+#submit-container {
+  vertical-align: top;
 }
 #search-container-collapser {
   background-image: url("/images/icons/arrow_drop_up-24px.svg");
@@ -152,7 +155,7 @@ nav ul li a:hover:not(.nav-active) {
   margin-top: 6vh;
 }
 #search-results-heading-background {
-  box-shadow: 2px -4px 8px -2px rgba(0,0,0,0.4);
+  box-shadow: 2px -4px 8px -4px rgba(0,0,0,0.4);
   z-index: 1;
 }
 #search-results-heading-container {
@@ -212,8 +215,10 @@ nav ul li a:hover:not(.nav-active) {
 }
 #search-results-container .texts-results-table tbody {
   border-bottom: 5px solid #2f536f;
+  color: #545454;
 }
 #search-results-container .texts-results-table tbody tr {
+  cursor: pointer;
   background-color: #fdfdfd;
 }
 #search-results-container .texts-results-table tbody tr:nth-child(even) {
@@ -222,12 +227,14 @@ nav ul li a:hover:not(.nav-active) {
 #search-results-container .texts-results-table tbody tr:hover {
   background-color: #eaeaea;
 }
+#search-results-container .texts-results-table tbody tr td {
+  padding: 3px 10px 2px;
+}
 #search-results-container .texts-results-table tbody tr td a {
   text-decoration: none;
-  color: #6a6a6a;
+  color: #545454;
   display: inline-block;
   width: 100%;
-  padding: 3px 10px 2px;
 }
 #search-results-container #table-4-col thead th:nth-child(1) {
   width: 45%;
@@ -249,6 +256,27 @@ nav ul li a:hover:not(.nav-active) {
 }
 #search-results-container #table-3-col thead th:nth-child(3) {
   width: 25%;
+}
+#search-results-container #table-2-col thead th:nth-child(1) {
+  width: 75%;
+}
+#search-results-container #table-2-col thead th:nth-child(2) {
+  width: 25%;
+}
+.texts-details {
+  border: 2px solid #707070;
+}
+.texts-details > div {
+  vertical-align: top;
+  display: inline-block;
+}
+.texts-details > div h3 {
+  padding: 3px 5px;
+}
+.text-label {
+  padding: 5px 0;
+  background-color: #707070;
+  color: #fff;
 }
 footer {
   margin-top: 5vh;
@@ -319,7 +347,7 @@ footer div ul:nth-child(3) {
 }
 .breadcrumbs ul li:last-child a {
   pointer-events: none;
-  color: #6a6a6a;
+  color: #545454;
   text-decoration: none;
 }
 .page-heading {
@@ -330,7 +358,7 @@ footer div ul:nth-child(3) {
 .main-text-content {
   margin-top: 2vh;
   padding: 0 1vw;
-  color: #6a6a6a;
+  color: #545454;
 }
 .main-text-content h2 {
   text-decoration: underline;
@@ -353,7 +381,7 @@ footer div ul:nth-child(3) {
   padding: 1vh 2vw 1vh 1vw;
 }
 #sidebar .sidebar-body a {
-  color: #6a6a6a;
+  color: #545454;
   text-decoration: none;
 }
 #sidebar .sidebar-body a:hover {
@@ -430,7 +458,7 @@ footer div ul:nth-child(3) {
 }
 .accordion-panel {
   padding: 1vh 1vw;
-  color: #6a6a6a;
+  color: #545454;
   border: 3px solid #707070;
   border-top: 0;
   margin-bottom: 1vh;
@@ -449,6 +477,24 @@ footer div ul:nth-child(3) {
 }
 .accordion-panel p.entry-detail {
   margin: 0;
+}
+.text-accordion {
+  background-color: #707070;
+  color: #fdfdfd;
+  font-size: 1em;
+  margin-top: 3px;
+  padding: 0;
+}
+.text-accordion span {
+  padding: 1.1vh 0.225vw;
+}
+.text-accordion-panel {
+  border: none;
+  margin-bottom: 0;
+}
+.text-accordion-panel span {
+  vertical-align: top;
+  padding-top: 5px;
 }
 button {
   background-color: #2f536f;
@@ -530,8 +576,8 @@ button {
 }
 .modal .modal-content .modal-body {
   background-color: #fff;
-  color: #6a6a6a;
-  padding: 6vh 6vw 3vh;
+  color: #545454;
+  padding: 4vh 6vw;
 }
 .modal .modal-content .modal-body button {
   float: right;
@@ -541,10 +587,10 @@ button {
 }
 .modal .modal-content .modal-body #citation-table tr {
   background-color: #fff;
-  padding: 2px 0;
 }
 .modal .modal-content .modal-body #citation-table tr td {
-  padding-right: 20px;
+  padding: 3px 20px 3px 0;
+  vertical-align: top;
 }
 .cite-box {
   border: 2px solid #707070;
@@ -552,7 +598,7 @@ button {
   margin: 2vh 0;
 }
 .cite-box p {
-  color: #6a6a6a;
+  color: #545454;
 }
 .cite-button:hover {
   background-color: #7b99b0;
@@ -565,6 +611,9 @@ p {
 }
 .example-record {
   margin: 2vh 0;
+}
+.italic {
+  font-style: italic;
 }
 .row {
   width: 100%;
@@ -1018,9 +1067,6 @@ p {
   body {
     font-size: 14px;
   }
-  #search-container form .form-block {
-    margin: 0;
-  }
   #search-container form .form-block input {
     width: 95%;
   }
@@ -1194,6 +1240,12 @@ p {
   }
   #search-results-container #table-3-col thead th:nth-child(3) {
     width: 25%;
+  }
+  #search-results-container .bibliography-table {
+    table-layout: fixed;
+  }
+  #search-results-container .bibliography-table tbody tr td:nth-child(1) {
+    width: 150px;
   }
   .pin {
     background-size: contain;

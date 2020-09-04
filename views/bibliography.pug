@@ -1,0 +1,64 @@
+extends layout
+
+
+block pagehead
+    title Fontes Anglo-Saxonici - Bibliography
+    script(src="/javascripts/minified/bibliographypage-min.js")
+
+block content
+    div(id="search-background" class="row")
+        div(id="search-container" class="col-8 col-s-8 offset-col-2 offset-col-s-2")
+            form(autocomplete="off" action="/bibliography/")
+                div(class="row")
+                    div(class="col-10 col-s-6")
+                        div(class="row")
+                            div(class="col-12 col-s-12")
+                                fieldset
+                                    legend Bibliography Type
+                                    input(type="radio", id="target", name="texttype", value="target", checked=(searchquery.texttype == "target" ? true : false))
+                                    label(for="target") Target
+                                    input(type="radio", id="source", name="texttype", value="source", checked=(searchquery.texttype == "source" ? true : false))
+                                    label(for="source") Source
+                                    input(type="radio", id="secondary", name="texttype", value="secondary", checked=(searchquery.texttype == "secondary" ? true : false))
+                                    label(for="secondary") Secondary
+                            div(class="col-12 col-s-12")
+                                div(class="form-block col-10 col-s-6")
+                                    label(for="title") Title
+                                    input(type="text", id="title", name="title", value=searchquery.title)
+                                    
+                    div(id="submit-container" class="form-block col-2 col-s-12")
+                        input(id="submit-query-button" type="submit", value="Search")
+                            
+                div(id="advanced-search" class="row")
+                    div(class="form-block col-6 col-s-12")
+                        label(for="author") Author
+                        input(type="text", id="author", name="author", value=searchquery.author)
+                    div(class="form-block col-6 col-s-12")
+                        label(for="edition") Edition
+                        input(type="text", id="edition", name="edition", value=searchquery.edition)
+                    
+             
+        div(class="col-12 col-s-12")       
+            input(type="button", id="search-container-collapser", value="collapse")
+
+    block resultstable
+        div(class="row")
+            div(id="search-results-container" class="col-8 col-s-8 offset-col-2 offset-col-s-2")
+    
+                if (recordcount.totalrecords > 0)
+                    
+                    +pagination(pages)
+                    
+                    div(class="records-information")
+                        
+                        span #{recordcount.recordslowerlimit}-#{recordcount.recordsupperlimit} of #{recordcount.totalrecords} records
+                        a(id="all-records" href="") See all records
+                        
+                    
+                    block tablecontent
+                    
+                    +pagination(pages)
+                    
+                else
+                    h2 No Records found
+                    p It seems that there are no records that match your search. 

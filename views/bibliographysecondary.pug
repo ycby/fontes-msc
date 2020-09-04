@@ -1,0 +1,78 @@
+extends bibliography
+
+mixin secondarymodal(info, index)
+    div(id=("modal-" + index) class="modal")
+        div(class="modal-content")
+            div(class="modal-header")
+                span(class="modal-close") &times;
+                h2 Secondary Text Information
+            div(class="modal-body")
+                table(id="citation-table" class="bibliography-table")
+                    tr
+                        td #[strong Name:]
+                        td= info.nameandyear
+                    tr
+                        td #[strong Details:]
+                        td= info.details
+                    tr
+                        td #[strong Date:]
+                        td= info.date
+
+block content
+    div(id="search-background" class="row")
+        div(id="search-container" class="col-8 col-s-8 offset-col-2 offset-col-s-2")
+            form(autocomplete="off" action="/bibliography/")
+                div(class="row")
+                    div(class="col-10 col-s-6")
+                        div(class="row")
+                            div(class="col-12 col-s-12")
+                                fieldset
+                                    legend Bibliography Type
+                                    input(type="radio", id="target", name="texttype", value="target", checked=(searchquery.texttype == "target" ? true : false))
+                                    label(for="target") Target
+                                    input(type="radio", id="source", name="texttype", value="source", checked=(searchquery.texttype == "source" ? true : false))
+                                    label(for="source") Source
+                                    input(type="radio", id="secondary", name="texttype", value="secondary", checked=(searchquery.texttype == "secondary" ? true : false))
+                                    label(for="secondary") Secondary
+                            div(class="col-12 col-s-12")
+                                div(class="form-block col-10 col-s-6")
+                                    label(for="title") Name / Year
+                                    input(type="text", id="title", name="title", value=searchquery.title)
+                                    
+                    div(id="submit-container" class="form-block col-2 col-s-12")
+                        input(id="submit-query-button" type="submit", value="Search")
+
+
+    block resultstable
+        div(class="row")
+            div(id="search-results-container" class="col-8 col-s-8 offset-col-2 offset-col-s-2")
+    
+                if (recordcount.totalrecords > 0)
+                    
+                    +pagination(pages)
+                    
+                    div(class="records-information")
+                        
+                        span #{recordcount.recordslowerlimit}-#{recordcount.recordsupperlimit} of #{recordcount.totalrecords} records
+                        a(id="all-records" href="") See all records
+                        
+                    
+                    block tablecontent
+                        table(id="table-2-col" class="texts-results-table")
+                            thead
+                                tr
+                                    th Name and Year
+                                    th Date
+                            tbody
+                                each record, index in tabledata
+                                    tr(id=("bibliography-row-" + index) class="bibliography-row")
+                                        td= record.nameandyear
+                                        td= record.date
+                    
+                        each record, index in tabledata
+                            +secondarymodal(record, index)
+                    
+                    +pagination(pages)
+                else
+                    h2 No Records found
+                    p It seems that there are no records that match your search. 
