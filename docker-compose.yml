@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: nodejs
-    container_name: nodejs
+    image: fontes-nodejs
+    container_name: fontes-nodejs
     restart: unless-stopped
     env_file: .env
     environment:
@@ -25,7 +25,7 @@ services:
     command: ./wait-for.sh db:27017 -- /home/node/app/node_modules/.bin/nodemon app.js...
   db:
     image: mongo:4.2
-    container_name: db
+    container_name: fontes-db
     restart: unless-stopped
     env_file: .env
 #    environment:
