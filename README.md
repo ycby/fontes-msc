@@ -12,6 +12,8 @@ Compose](https://docs.docker.com/compose/).
 2. [Install Docker Compose](https://docs.docker.com/compose/install/) if you
    don't have it already and it isen't included with your Docker installation.
 3. Navigate to project directory.
-4. Run `docker-compose up`.
-5. Visit http://localhost:7500 in your browser
+4. Copy `.env-template` to `.env` and edit so that it contains the correct DB
+   username and password.
+5. Run `docker-compose up`.
+6. Visit http://localhost:7500 in your browser
 

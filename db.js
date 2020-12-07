@@ -1,6 +1,8 @@
 var mongoose = require("mongoose")
 
 const {
+  MONGO_USERNAME,
+  MONGO_PASSWORD,
   MONGO_HOSTNAME,
   MONGO_PORT,
   MONGO_DB
@@ -13,7 +15,7 @@ const options = {
 };
 
 //the local one has the latest changes. this is the location information sometimes being read as a date fix.
-var mongoDB = `mongodb://${MONGO_HOSTNAME}:${MONGO_HOSTNAME}/${MONGO_DB}`;
+var mongoDB = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_HOSTNAME}/${MONGO_DB}`;
 
 //mongoose.connect(mongoDB, {useUnifiedTopology: true, useNewUrlParser: true});
 mongoose.connect(mongoDB, options).then( function() {

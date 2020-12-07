@@ -10,8 +10,8 @@ services:
     restart: unless-stopped
     env_file: .env
     environment:
-#      - MONGO_USERNAME=$MONGO_USERNAME
-#      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
       - MONGO_HOSTNAME=db
       - MONGO_PORT=$MONGO_PORT
       - MONGO_DB=$MONGO_DB
@@ -28,9 +28,9 @@ services:
     container_name: fontes-db
     restart: unless-stopped
     env_file: .env
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
-#      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
     volumes:
       - ./db:/data/db
     networks:
