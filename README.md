@@ -10,7 +10,7 @@ Compose](https://docs.docker.com/compose/).
 1. [Install Docker](https://www.docker.com/get-started) if you don't have it
    already.
 2. [Install Docker Compose](https://docs.docker.com/compose/install/) if you
-   don't have it already and it isen't included with your Docker installation.
+   don't have it already and it isn't included with your Docker installation.
 3. Navigate to project directory.
 4. Run `docker-compose up`.
 5. Visit http://localhost:7500 in your browser
