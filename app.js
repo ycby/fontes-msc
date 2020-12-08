@@ -20,6 +20,11 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+const {
+  BASE_URL
+} = process.env;
+var baseUrl = BASE_URL;
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -27,12 +32,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/autocompleter')));
 
-app.use('/', baseRouter);
-app.use('/search', searchRouter);
-app.use('/about', aboutRouter);
-app.use('/pinned', pinnedRouter);
-app.use('/help', helpRouter);
-app.use('/bibliography', bibliographyRouter);
+app.use(baseUrl, baseRouter);
+app.use(baseUrl+'search', searchRouter);
+app.use(baseUrl+'about', aboutRouter);
+app.use(baseUrl+'pinned', pinnedRouter);
+app.use(baseUrl+'help', helpRouter);
+app.use(baseUrl+'bibliography', bibliographyRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
