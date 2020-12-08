@@ -32,12 +32,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/autocompleter')));
 
+baseRouter.use('/search', searchRouter);
+baseRouter.use('/about', aboutRouter);
+baseRouter.use('/pinned', pinnedRouter);
+baseRouter.use('/help', helpRouter);
+baseRouter.use('/bibliography', bibliographyRouter);
 app.use(baseUrl, baseRouter);
-app.use(baseUrl+'search', searchRouter);
-app.use(baseUrl+'about', aboutRouter);
-app.use(baseUrl+'pinned', pinnedRouter);
-app.use(baseUrl+'help', helpRouter);
-app.use(baseUrl+'bibliography', bibliographyRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
