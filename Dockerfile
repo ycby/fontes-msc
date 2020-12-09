@@ -6,6 +6,10 @@ WORKDIR /home/node/app
 
 COPY package*.json ./
 
+USER root
+
+RUN npm install stylus -g
+
 USER node
 
 RUN npm install
