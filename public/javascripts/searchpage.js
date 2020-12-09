@@ -42,7 +42,7 @@ $(document).ready(function() {
             render: custRender,
             fetch: function(text, update) {
                 text = text.toLowerCase();
-                $.get("/search/targetsuggestions?title=" + text, function(data) {
+                $.get(baseUrl + "search/targetsuggestions?title=" + text, function(data) {
                     // console.log(suggestions);
                     update(data);
                 });
@@ -60,7 +60,7 @@ $(document).ready(function() {
             render: custRender,
             fetch: function(text, update) {
                 text = text.toLowerCase();
-                $.get("/search/sourcesuggestions?title=" + text, function(data) {
+                $.get(baseUrl + "search/sourcesuggestions?title=" + text, function(data) {
                     // console.log(suggestions);
                     update(data);
                 });
@@ -93,7 +93,7 @@ $(document).ready(function() {
     $("#reference").val(sessionStorage.getItem("reference"));
 
     $("#search-breadcrumb").text($("#search-breadcrumb").text() + " " + (sessionStorage.getItem("title") != null ? sessionStorage.getItem("title") : ""));
-    $("#search-breadcrumb").attr("href", (sessionStorage.getItem("query") != null ? "/search/?" + sessionStorage.getItem("query") : "/search/"));
+    $("#search-breadcrumb").attr("href", (sessionStorage.getItem("query") != null ? baseUrl + "search/?" + sessionStorage.getItem("query") : baseUrl + "search/"));
 
     $("#submit-query-button").click(saveQuery);
 
@@ -218,7 +218,7 @@ function clipboardCopy() {
 
     var thisButton = $(this);
     //from https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
-    navigator.permissions.query({name: "clipboard-write"}).then(result => {
+    navigator.permissions.query({name: "clipboard-write"}).then(function(result) {
         if (result.state == "granted" || result.state == "prompt") {
             var copiedText = $(this).next(".cite-box").find("p").text();
             navigator.clipboard.writeText(copiedText);

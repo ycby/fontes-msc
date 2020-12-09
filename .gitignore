@@ -9,4 +9,5 @@ public/stylesheets/printbook.css
 public/stylesheets/printentries.css
 public/stylesheets/printpinned.css
 public/stylesheets/style.css
-public/stylesheets/minified/style-min.css
+public/stylesheets/minified/*-min.css
+public/javascripts/minified/*-min.js

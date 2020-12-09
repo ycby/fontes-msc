@@ -33,7 +33,7 @@ function moveToPinned(event, type) {
 
     //always submit the form
 
-    var fakeform = $("<form method='post' action='/pinned/" + type +"'></form>");
+    var fakeform = $("<form method='post' action='" + baseUrl + "pinned/" + type +"'></form>");
 
     fakeform.append("<input type='hidden' name='pinnedentries' value='" + JSON.stringify(pinnedEntries) + "'>");
 
