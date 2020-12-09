@@ -24,6 +24,7 @@ services:
       - app-network
     command: ash -c "
         stylus views/styls/* -o public/stylesheets &&
+        stylus -c views/styls/style.styl -o public/stylesheets/minified/style-min.css &&
         ./wait-for.sh db:27017 -- /home/node/app/node_modules/.bin/nodemon app.js...
       "
   db:
