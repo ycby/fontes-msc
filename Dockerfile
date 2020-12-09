@@ -9,6 +9,7 @@ COPY package*.json ./
 USER root
 
 RUN npm install stylus -g
+RUN npm install uglify-js -g
 
 USER node
 
