@@ -23,7 +23,7 @@ var HeaderSchema = new Schema (
 HeaderSchema
 .virtual("url")
 .get(function() {
-    return "/search/targettext/" + this._id + "/";
+    return app.locals.baseUrl + "search/targettext/" + this._id + "/";
 });
 
 //export schema

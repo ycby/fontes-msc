@@ -25,7 +25,7 @@ var BibPrimeSchema = new Schema (
 BibPrimeSchema
 .virtual("url")
 .get(function() {
-    return "/search/sourcetext/" + this._id + "/";
+    return app.locals.baseUrl + "search/sourcetext/" + this._id + "/";
 });
 
 

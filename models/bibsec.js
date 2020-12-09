@@ -16,7 +16,7 @@ var BibSecSchema = new Schema (
 BibSecSchema
 .virtual("url")
 .get(function() {
-    return "/path/" + this._id;
+    return app.locals.baseUrl + "path/" + this._id;
 })
 
 

@@ -14,7 +14,7 @@ var AngloSaxonAuthorSchema = new Schema (
 AngloSaxonAuthorSchema
 .virtual("url")
 .get(function() {
-    return "/path/" + this._id;
+    return app.locals.baseUrl + "path/" + this._id;
 })
 
 

@@ -14,7 +14,7 @@ var SigilMultipleSchema = new Schema (
 SigilMultipleSchema
 .virtual("url")
 .get(function() {
-    return "/path/" + this._id;
+    return app.locals.baseUrl + "path/" + this._id;
 })
 
 

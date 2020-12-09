@@ -14,7 +14,7 @@ var pinnedRouter = require('./routes/pinned');
 var helpRouter = require('./routes/help');
 var bibliographyRouter = require('./routes/bibliographies');
 
-var app = express();
+app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

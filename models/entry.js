@@ -34,7 +34,7 @@ var EntrySchema = new Schema (
 EntrySchema
 .virtual("url")
 .get(function() {
-    return "" + this._id;
+    return app.locals.baseUrl + this._id;
 })
 
 
