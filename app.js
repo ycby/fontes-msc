@@ -38,6 +38,7 @@ baseRouter.use('/pinned', pinnedRouter);
 baseRouter.use('/help', helpRouter);
 baseRouter.use('/bibliography', bibliographyRouter);
 app.use(baseUrl, baseRouter);
+app.locals.baseUrl = baseUrl;
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
