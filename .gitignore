@@ -4,3 +4,9 @@ package-lock.json
 port_scripts/
 *.docx
 .env
+public/stylesheets/printbibliography.css
+public/stylesheets/printbook.css
+public/stylesheets/printentries.css
+public/stylesheets/printpinned.css
+public/stylesheets/style.css
+public/stylesheets/minified/style-min.css
