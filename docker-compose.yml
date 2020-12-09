@@ -15,6 +15,7 @@ services:
       - MONGO_HOSTNAME=db
       - MONGO_PORT=$MONGO_PORT
       - MONGO_DB=$MONGO_DB
+      - BASE_URL=$BASE_URL
     ports:
       - "7500:20561"
     volumes:
@@ -23,8 +24,7 @@ services:
     networks:
       - app-network
     command: ash -c "
-        stylus views/styls/* -o public/stylesheets &&
-        stylus -c views/styls/style.styl -o public/stylesheets/minified/style-min.css &&
+        ./styles.sh '$BASE_URL' &&
         ./wait-for.sh db:27017 -- /home/node/app/node_modules/.bin/nodemon app.js...
       "
   db:
