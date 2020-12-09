@@ -8,15 +8,15 @@ extends layout
 //- same pagination
 block pagehead
   title Fontes Anglo-Saxonici - Search
-  script(src="/javascripts/minified/searchpage-min.js")
-  script(src="/autocomplete.js")
+  script(src=baseUrl+"javascripts/minified/searchpage-min.js")
+  script(src=baseUrl+"autocomplete.js")
   block printcss
-      link(rel="stylesheet", type="text/css", media="print", href="/stylesheets/printbook.css")
-              
+      link(rel="stylesheet", type="text/css", media="print", href=baseUrl+"stylesheets/printbook.css")
+
 block content
   div(id="search-background" class="row")
       div(id="search-container" class="col-8 col-s-8 offset-col-2 offset-col-s-2")
-          form(autocomplete="off" action="/search/")
+          form(autocomplete="off" action="search")
               div(class="row")
                   div(class="col-4 col-s-6")
                       fieldset
@@ -40,11 +40,11 @@ block content
                   div(class="form-block col-4 col-s-12")
                       label(for="reference") Reference
                       input(type="text", id="reference", name="reference", value=searchquery.reference, disabled=(searchquery.texttype == "source-text" ? true : false))
-           
-      div(class="col-12 col-s-12")       
+
+      div(class="col-12 col-s-12")
           input(type="button", id="search-container-collapser", value="collapse")
-              
-  div(id="search-results-heading-background" class="row")        
+
+  div(id="search-results-heading-background" class="row")
       div(id="search-results-heading-container" class="col-8 col-s-8 offset-col-2 offset-col-s-2")
           div(class="row")
               +breadcrumbs()
@@ -52,11 +52,11 @@ block content
               h2(class="col-2 col-s-2") Target Text:
               if selectedtexts.targettext.title
                   h2(class="selected-texts col-8 col-s-8") #{selectedtexts.targettext.title}
-              a(id="print-records" href="print" target="_blank")
-                  img(src="/images/icons/print-24px.svg" alt="Print records")
-              a(id="download-records" href="./csv")
-                  img(src="/images/icons/download_csv.svg" alt="Download records")
-              
+              a(id="print-records" href=baseUrl+"search/print" target="_blank")
+                  img(src=baseUrl+"images/icons/print-24px.svg" alt="Print records")
+              a(id="download-records" href=baseUrl+"search/csv")
+                  img(src=baseUrl+"images/icons/download_csv.svg" alt="Download records")
+
           hr
           div(class="row")
               h3(class="col-2 col-s-2") Source Text:
@@ -68,13 +68,13 @@ block content
           div(id="search-results-container" class="col-8 col-s-8 offset-col-2 offset-col-s-2")
 
               if (recordcount.totalrecords > 0)
-                  
+
                   +pagination(pages)
-                  
+
                   div(class="records-information")
                       span #{recordcount.recordslowerlimit}-#{recordcount.recordsupperlimit} of #{recordcount.totalrecords} records
                       a(id="all-records" href="") See all records
-                  
+
                   if tabledata[0].count
                       table(id="table-4-col" class="texts-results-table")
                           thead
@@ -110,10 +110,10 @@ block content
                                           a(href=(record.url + "?texttype=" + searchquery.texttype)) #{record.author}
                                       td
                                           a(href=(record.url + "?texttype=" + searchquery.texttype)) #{record.edition}
-                                          
+
                   +pagination(pages)
-                                          
-              else 
+
+              else
                   h2 No Records found
                   p It seems that there are no records that match your search. The autocomplete feature can help determine if a text exists
-              
+

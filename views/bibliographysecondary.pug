@@ -21,7 +21,7 @@ mixin secondarymodal(info, index)
 block content
     div(id="search-background" class="row")
         div(id="search-container" class="col-8 col-s-8 offset-col-2 offset-col-s-2")
-            form(autocomplete="off" action="/bibliography/")
+            form(autocomplete="off" action=baseUrl+"bibliography")
                 div(class="row")
                     div(class="col-10 col-s-6")
                         div(class="row")
@@ -38,7 +38,7 @@ block content
                                 div(class="form-block col-10 col-s-6")
                                     label(for="title") Name / Year
                                     input(type="text", id="title", name="title", value=searchquery.title)
-                                    
+
                     div(id="submit-container" class="form-block col-2 col-s-12")
                         input(id="submit-query-button" type="submit", value="Search")
 
@@ -46,22 +46,22 @@ block content
     block resultstable
         div(class="row")
             div(id="search-results-container" class="col-8 col-s-8 offset-col-2 offset-col-s-2")
-    
+
                 if (recordcount.totalrecords > 0)
-                    
+
                     +pagination(pages)
-                    
+
                     div(class="records-information")
-                        
+
                         span #{recordcount.recordslowerlimit}-#{recordcount.recordsupperlimit} of #{recordcount.totalrecords} records
                         a(id="all-records" href="") See all records
-                        
+
                     div(class="row")
-                        a(id="print-records" class="float-right" href="print" target="_blank")
-                            img(src="/images/icons/print-24px.svg" alt="Print records")
-                        a(id="download-records" class="float-right" href="./csv")
-                            img(src="/images/icons/download_csv.svg" alt="Download records")
-                    
+                        a(id="print-records" class="float-right" href=baseUrl+"bibliography/print" target="_blank")
+                            img(src=baseUrl+"images/icons/print-24px.svg" alt="Print records")
+                        a(id="download-records" class="float-right" href=baseUrl+"bibliography/csv")
+                            img(src=baseUrl+"images/icons/download_csv.svg" alt="Download records")
+
                     block tablecontent
                         table(id="table-2-col" class="texts-results-table")
                             thead
@@ -73,11 +73,11 @@ block content
                                     tr(id=("bibliography-row-" + index) class="bibliography-row")
                                         td= record.nameandyear
                                         td= record.date
-                    
+
                         each record, index in tabledata
                             +secondarymodal(record, index)
-                    
+
                     +pagination(pages)
                 else
                     h2 No Records found
-                    p It seems that there are no records that match your search. 
+                    p It seems that there are no records that match your search.

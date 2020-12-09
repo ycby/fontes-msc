@@ -2,7 +2,7 @@ extends layout
 
 block pagehead
   title Fontes Anglo-Saxonici - Pinned
-  script(src="/javascripts/pinnedpage.js")
+  script(src=baseUrl+"javascripts/pinnedpage.js")
 
 mixin targetTextAccordion(target)
   div(class="target-text-accordion accordion-container")
@@ -25,7 +25,7 @@ mixin sourceTextAccordion(source)
           div(class="accordion-panel")
               each entry in source[1]
                   +entryAccordion(entry)
-                  
+
 mixin entryAccordion(entry)
   div(class="entry-accordion accordion-container")
       div(class="row")
@@ -49,8 +49,8 @@ mixin entryAccordion(entry)
                   div(class="col-3 col-s-4 entry-block")
                       p(class="entry-heading") BHL Number:
                       p(class="entry-detail")= entry.bhlnumber
-                  
-                  
+
+
               div(class="row")
                   div(class="col-3 col-s-4 entry-block")
                       p(class="entry-heading") Source Text:
@@ -65,7 +65,7 @@ mixin entryAccordion(entry)
                       p(class="entry-heading") Sigla Interpretation:
                       each interpretation, index in entry.siglainterpretation
                           p(class="entry-detail") #{index + 1}. #{interpretation}
-              
+
               div(class="row")
                   div(class="col-3 col-s-3 entry-block")
                       p(class="entry-heading") Source Location:
@@ -73,7 +73,7 @@ mixin entryAccordion(entry)
                   div(class="col-6 col-s-6 entry-block")
                       p(class="entry-heading") Source Quote:
                       p(class="entry-detail")= entry.sourcequote
-                      
+
               div(class="row")
                   div(class="col-3 col-s-3 entry-block")
                       p(class="entry-heading") Entry Location:
@@ -81,40 +81,40 @@ mixin entryAccordion(entry)
                   div(class="col-6 col-s-6 entry-block")
                       p(class="entry-heading") Entry Quote:
                       p(class="entry-detail")= entry.entryquote
-              
+
               div(class="row")
                   div(class="col-10 col-s-10 entry-block")
                       p(class="entry-heading") Comment:
                       p(class="entry-detail")= entry.comment
-                  
+
               div(class="row")
                   div(class="col-10 col-s-10 entry-block")
                       p(class="entry-heading") Bibliography:
                       p(class="entry-detail")= entry.bibliography
-              
+
               div(class="row")
                   div(class="col-10 col-s-10 entry-block")
                       p(class="entry-heading") Manuscript:
                       p(class="entry-detail")= entry.manuscript
-                     
+
               div(class="row")
                   div(class="col-2 offset-col-10 col-s-2 offset-col-s-10 entry-block")
                       p(class="entry-heading") Date:
                       p(class="entry-detail")= entry.date
                   div(class="hidden")
                       p(class="_id")= entry._id
-                      
+
 block content
   div(class="row pinned-header")
       div(class="row col-8 offset-col-2 col-s-10 offset-col-s-1")
           h1(class="page-heading") Pinned
       div(class="row col-8 offset-col-2 col-s-10 offset-col-s-1")
-          a(id="print-records" class="pinned-print-and-csv" href="print" target="_blank")
-              img(src="/images/icons/print-24px.svg" alt="Print records")
-          a(id="download-records" class="pinned-print-and-csv" href="./csv")
-              img(src="/images/icons/download_csv.svg" alt="Download records")
+          a(id="print-records" class="pinned-print-and-csv" href=baseUrl+"pinned/print" target="_blank")
+              img(src=baseUrl+"images/icons/print-24px.svg" alt="Print records")
+          a(id="download-records" class="pinned-print-and-csv"href=baseUrl+"pinned/csv")
+              img(src=baseUrl+"images/icons/download_csv.svg" alt="Download records")
   div(class="row")
       div(class="col-8 offset-col-2 col-s-10 offset-col-s-1 main-text-content" role="main")
-          
+
           each targettext in data
               +targetTextAccordion(targettext)

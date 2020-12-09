@@ -1,27 +1,27 @@
 //- navbar
 nav(class="row")
     //- logo
-    
+
     //- links
     //-  -search
     //-  -about
     //-  -pinned
     //-  -contact
-    
+
     //-help
 
     ul
         li
-            img(class="nav-logo" src="/images/logo.png" alt="Logo of Fontes: Anglo-Saxonici")
-        li 
-            a(class=(activepage == "search" ? "nav-active" : undefined) href="/search/") Search
+            img(class="nav-logo" src=baseUrl+"images/logo.png" alt="Logo of Fontes: Anglo-Saxonici")
         li
-            a(class=(activepage == "bibliography" ? "nav-active" : undefined) href="/bibliography/") Bibliography
+            a(class=(activepage == "search" ? "nav-active" : undefined) href=baseUrl+"search") Search
         li
-            a(class=(activepage == "about" ? "nav-active" : undefined) href="/about/") About
-        li 
-            a(id="nav-pinned" class=(activepage == "pinned" ? "nav-active" : undefined) href="/pinned/") Pinned
-        li(class="nav-help") 
-            a(class=(activepage == "help" ? "nav-active" : undefined) href="/help/") Help
+            a(class=(activepage == "bibliography" ? "nav-active" : undefined) href=baseUrl+"bibliography") Bibliography
+        li
+            a(class=(activepage == "about" ? "nav-active" : undefined) href=baseUrl+"about") About
+        li
+            a(id="nav-pinned" class=(activepage == "pinned" ? "nav-active" : undefined) href=baseUrl+"pinned") Pinned
+        li(class="nav-help")
+            a(class=(activepage == "help" ? "nav-active" : undefined) href=baseUrl+"help") Help
         li(class="icon")
             span(id="hamburger-menu")

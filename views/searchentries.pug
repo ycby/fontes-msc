@@ -33,7 +33,7 @@ mixin primarymodal(info, index)
 block resultstable
   div(class="row")
       div(id="search-results-container" class="col-8 offset-col-2 col-s-8 offset-col-s-2")
-          
+
           div(class="row texts-details")
               div(class="col-12 row")
                   h3(class="col-12") Additional Details of Texts
@@ -54,7 +54,7 @@ block resultstable
                       div(class="row col-12 col-s-12")
                           span(class="col-2 col-s-2 col-xs-3") Bibliography:
                           span(class="col-9 col-s-9 col-xs-8")= headerinfo.bibliography
-                      
+
               div(class="col-12 row")
                   button(class="accordion text-accordion col-12 row")
                       span(class="italic col-11 col-s-11 col-xs-10 text-label") Source Text
@@ -74,12 +74,12 @@ block resultstable
                           span(class="col-9 col-s-9 col-xs-8")= sourceinfo.reference_comment
 
           +pagination(pages)
-              
+
           //- -var tableUpperLimit = ta
           div(class="records-information")
               span #{recordcount.recordslowerlimit}-#{recordcount.recordsupperlimit} of #{recordcount.totalrecords} records
               a(id="all-records" href="") See all records
-          
+
           //-W3schools to the rescue again
           div(id="entries-container")
               each record, index in tabledata
@@ -92,10 +92,10 @@ block resultstable
                               span(class="col-1 col-s-1 col-xs-3")= record.sigil
                               span(class="col-1 col-s-1 col-xs-2 entry-arrow")
                           div(class="accordion-panel")
-                              
+
                               button(id=("cite-button-" + index) class="cite-button") Cite
                               +citemodal(record, citeinfo, index)
-                              
+
                               div(class="row")
                                   div(class="col-3 col-s-4 entry-block")
                                       p(class="entry-heading") Text Reference:
@@ -109,8 +109,8 @@ block resultstable
                                   div(class="col-3 col-s-4 entry-block")
                                       p(class="entry-heading") BHL Number:
                                       p(class="entry-detail")= record.bhlnumber
-                                  
-                                  
+
+
                               div(class="row")
                                   div(class="col-3 col-s-4 entry-block")
                                       p(class="entry-heading") Source Text:
@@ -125,7 +125,7 @@ block resultstable
                                       p(class="entry-heading") Sigla Interpretation:
                                       each interpretation, index in record.siglainterpretation
                                           p(class="entry-detail") #{index + 1}. #{interpretation}
-                              
+
                               div(class="row")
                                   div(class="col-3 col-s-3 entry-block")
                                       p(class="entry-heading") Source Location:
@@ -133,7 +133,7 @@ block resultstable
                                   div(class="col-6 col-s-6 entry-block")
                                       p(class="entry-heading") Source Quote:
                                       p(class="entry-detail")= record.sourcequote
-                                      
+
                               div(class="row")
                                   div(class="col-3 col-s-3 entry-block")
                                       p(class="entry-heading") Entry Location:
@@ -141,27 +141,27 @@ block resultstable
                                   div(class="col-6 col-s-6 entry-block")
                                       p(class="entry-heading") Entry Quote:
                                       p(class="entry-detail")= record.entryquote
-                              
+
                               div(class="row")
                                   div(class="col-10 col-s-10 entry-block")
                                       p(class="entry-heading") Comment:
                                       p(class="entry-detail")= record.comment
-                                  
+
                               div(class="row")
                                   div(class="col-10 col-s-10 entry-block")
                                       p(class="entry-heading") Bibliography:
                                       p(class="entry-detail")= record.bibliography
-                              
+
                               div(class="row")
                                   div(class="col-10 col-s-10 entry-block")
                                       p(class="entry-heading") Manuscript:
                                       p(class="entry-detail")= record.manuscript
-                                     
+
                               div(class="row")
                                   div(class="col-2 col-s-2 offset-col-10 offset-col-s-10 entry-block")
                                       p(class="entry-heading") Date:
                                       p(class="entry-detail")= record.date
                                   div(class="hidden")
                                       p(class="_id")= record._id
-              
+
           +pagination(pages)

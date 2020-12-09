@@ -3,14 +3,14 @@ doctype html
 //- with a little help from https://www.w3schools.com/howto/howto_css_pagination.asp
 mixin pagination(pages)
   div(class="pagination")
-      
+
       //- prev
       a(class=(recordcount.currentpage == 1 ? "pagination-disabled" : "") href="#") &laquo; Prev
-      
+
       //- pages
       if recordcount.totalpages == 1
           a(class="pagination-page-links pagination-active" href="#") 1
-      else if recordcount.totalpages <= 5 
+      else if recordcount.totalpages <= 5
           -for(var x = 1; x <= recordcount.totalpages; x ++)
               a(class=("pagination-page-links" + (recordcount.currentpage == x ? " pagination-active" : "")) href="#")= x
       else
@@ -39,7 +39,7 @@ mixin pagination(pages)
               //- then the last 3 pages
               -for(var x = recordcount.totalpages - 3; x <= recordcount.totalpages; x ++)
                   a(class=("pagination-page-links" + (recordcount.currentpage == x ? " pagination-active" : "")) href="#")= x
-                  
+
       //- next
       a(class=(recordcount.currentpage == recordcount.totalpages ? "pagination-disabled" : "") href="#") Next &raquo;
 
@@ -62,7 +62,7 @@ mixin breadcrumbs()
               if (selectedtexts.targettext.title != "")
                   li
                       a(href=selectedtexts.targettext.url + "?texttype=" + searchquery.texttype)= selectedtexts.targettext.title
-        
+
 //- praise w3schools
 mixin citemodal(information, citeInfo, index)
     div(id=("citemodal-" + index) class="modal cite")
@@ -95,19 +95,19 @@ mixin citemodal(information, citeInfo, index)
                     tr
                         td #[strong Date Accessed:]
                         td= citeInfo.accessed
-                    
+
 
 html(lang="en")
   head
     meta(name="viewport", content="width=device-width, initial-scale = 1.0")
     meta(charset="UTF-8")
-    link(rel='stylesheet', type="text/css", media="screen" href='/stylesheets/minified/style-min.css')
+    link(rel='stylesheet', type="text/css", media="screen" href=baseUrl+'stylesheets/minified/style-min.css')
     link(href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap", rel="stylesheet")
-    link(rel="icon", type="image/png", href="/images/icons/favicon.png")
+    link(rel="icon", type="image/png", href=baseUrl+"images/icons/favicon.png")
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
-    script(src="/javascripts/minified/all-min.js")
+    script(src=baseUrl+"javascripts/minified/all-min.js")
     block pagehead
-        
+
   body
     include includes/nav.pug
     block content
