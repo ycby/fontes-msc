@@ -29,8 +29,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'node_modules/autocompleter')));
+app.use(baseUrl, express.static('public'));
+app.use(baseUrl, express.static('node_modules/autocompleter'));
 
 baseRouter.use('/search', searchRouter);
 baseRouter.use('/about', aboutRouter);
