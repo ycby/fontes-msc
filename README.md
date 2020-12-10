@@ -34,3 +34,10 @@ installed globally before `npm install` is run for the project istself. When
 the container is run via `docker-compose up`, Stylus and UglifyJS commands are
 used to generate minified CSS and JavaScript files, using the `BASE_URL`
 environment variable to make sure that all urls in those files are correct.
+
+## Acknowledgements
+
+Lots of googling involved in getting the Docker-based build/deploy process
+working, but this [DigitalOcean Community
+article](https://www.digitalocean.com/community/tutorials/containerizing-a-node-js-application-for-development-with-docker-compose)
+is the foundation of it.
