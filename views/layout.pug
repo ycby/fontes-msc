@@ -76,7 +76,7 @@ mixin citemodal(information, citeInfo, index)
                 div(class="cite-box")
                     p #{citeInfo.contributor}, "#{citeInfo.title} (#{information.textreference})", #{information.date},  Fontes Anglo-Saxonici: World Wide Web Register, Temp, accessed #{citeInfo.accessed}
                 span Alternatively, please use the following information:
-                table(id="citation-table")
+                table(class="citation-table")
                     tr
                         td #[strong Contributor:]
                         td= citeInfo.contributor

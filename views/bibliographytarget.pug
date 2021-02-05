@@ -7,7 +7,7 @@ mixin targetmodal(info, index)
                 span(class="modal-close") &times;
                 h2 Target Text Information
             div(class="modal-body")
-                table(id="citation-table" class="bibliography-table")
+                table(class="citation-table bibliography-table")
                     tr
                         td #[strong Title:]
                         td= info.title
@@ -35,6 +35,6 @@ block tablecontent
                     td= record.title
                     td= record.author
                     td= record.textedition
-                    
+
     each record, index in tabledata
         +targetmodal(record, index)
