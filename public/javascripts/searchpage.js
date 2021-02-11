@@ -6,6 +6,9 @@ $(document).ready(function() {
     //copy citation
     $(".cite").find(".copy").click(clipboardCopy);
 
+    //copy popup
+    $(".cite").find(".popup").click(copyClicked);
+
     //write see all records href
     $("#all-records").attr("href", replaceAllRecordsHref());
 
@@ -243,6 +246,13 @@ function fallbackCopy(thisButton) {
     document.execCommand("copy");
 
     hiddenInput.remove();
+}
+
+//Add popup when copy is clicked
+function copyClicked() {
+
+    console.log("clicked in popup");
+    $(this).find(".popuptext").toggleClass("show-popup");
 }
 
 function getCiteButtonNumber(citeButton) {
