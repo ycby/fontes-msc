@@ -102,7 +102,7 @@ function getTargetBibliographies(pageNo, pageToRender, reqQuery, res) {
             helpers.documentCount(BibText, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(BibText, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {new_title: 1}).exec(callback);
+            helpers.documentSearch(BibText, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {title: 1}).exec(callback);
         }
     }, function(err, results) {
 
@@ -132,7 +132,7 @@ function getSecondaryBibliographies(pageNo, pageToRender, reqQuery, res) {
             helpers.documentCount(BibSec, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(BibSec, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1).exec(callback);
+            helpers.documentSearch(BibSec, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {name_and_year: 1}).exec(callback);
         }
     }, function(err, results) {
         //console.log(results.records);

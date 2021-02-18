@@ -23,7 +23,7 @@ fontsize-nav = 1.125em
 
 // - mixins
 //radio button appearance
-radio-appearance(value)
+input-appearance(value)
     -moz-appearance: value
     -webkit-appearance: value
     appearance: value
@@ -39,6 +39,9 @@ body
 
 a
     color: color-hyperlink
+
+input
+    input-appearance(none)
 
 //nav
 nav
@@ -134,7 +137,7 @@ nav
                     background-color: color-nav-hover
                     cursor: pointer;
             input
-                radio-appearance(none)
+                input-appearance(none)
             input:checked+label
                 background-color: color-nav-selected
                 cursor: default
@@ -470,6 +473,7 @@ button
     padding: 5px 7px
     font-size: 11px
     cursor: pointer
+    input-appearance(none)
 
 .accordion-container
     padding: 1vh 1vw
@@ -563,8 +567,55 @@ button
 .cite-button:hover
     background-color: color-secondary
 
+.copy:hover
+    background-color: color-secondary
+
 .hidden
     display: none
+
+//copy popup
+.popup
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+.popup .popuptext
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+
+.popup .popuptext::after
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+
+.popup .show-popup
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+
+@keyframes fadeIn
+    from {opacity: 0;}
+    to {opacity:1 ;}
+
 
 p
     margin-bottom: 12px

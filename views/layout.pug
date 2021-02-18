@@ -72,9 +72,10 @@ mixin citemodal(information, citeInfo, index)
                 h2 Cite Record
             div(class="modal-body")
                 span For referencing this record, please use the following:
-                button(class="copy") Copy
+                button(class="copy popup") Copy
+                    span(class="popuptext") Copied
                 div(class="cite-box")
-                    p #{citeInfo.contributor}, "#{citeInfo.title} (#{information.textreference})", #{information.date},  Fontes Anglo-Saxonici: World Wide Web Register, Temp, accessed #{citeInfo.accessed}
+                    p #{citeInfo.contributor}, "#{citeInfo.title} (#{information.textreference})", #{information.date}, Fontes Anglo-Saxonici: World Wide Web Register, https://arts.st-andrews.ac.uk/fontes/, accessed #{citeInfo.accessed}
                 span Alternatively, please use the following information:
                 table(class="citation-table")
                     tr
@@ -91,7 +92,7 @@ mixin citemodal(information, citeInfo, index)
                         td Fontes Anglo-Saxonici: World Wide Web Register
                     tr
                         td #[strong Website:]
-                        td Temp
+                        td https://arts.st-andrews.ac.uk/fontes/
                     tr
                         td #[strong Date Accessed:]
                         td= citeInfo.accessed
