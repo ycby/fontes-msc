@@ -75,7 +75,7 @@ mixin citemodal(information, citeInfo, index)
                 button(class="copy popup") Copy
                     span(class="popuptext") Copied
                 div(class="cite-box")
-                    p #{citeInfo.contributor}, "#{citeInfo.title} (#{information.textreference})", #{information.date}, Fontes Anglo-Saxonici: World Wide Web Register, https://arts.st-andrews.ac.uk/fontes/, accessed #{citeInfo.accessed}
+                    p #{citeInfo.contributor}, "#{citeInfo.title} (#{information.textreference})", #{information.date}, Fontes Anglo-Saxonici: World Wide Web Register, https://#{hostname}#{baseUrl}, accessed #{citeInfo.accessed}
                 span Alternatively, please use the following information:
                 table(class="citation-table")
                     tr
@@ -92,7 +92,7 @@ mixin citemodal(information, citeInfo, index)
                         td Fontes Anglo-Saxonici: World Wide Web Register
                     tr
                         td #[strong Website:]
-                        td https://arts.st-andrews.ac.uk/fontes/
+                        td https://#{hostname}#{baseUrl}
                     tr
                         td #[strong Date Accessed:]
                         td= citeInfo.accessed
