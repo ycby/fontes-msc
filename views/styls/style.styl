@@ -122,6 +122,8 @@ nav
                 outline: none
                 &:hover
                     background-color: color-nav-hover
+                &:focus
+                    background-color: color-nav-hover
                 &:active
                     background-color: color-secondary
 
@@ -158,6 +160,10 @@ nav
     width: 100%
     height: 4vh
     transition: transform 0.2s linear
+    &:hover
+        background-image: url($base-url + "images/icons/arrow_drop_up_white-24px.svg")
+    &:focus
+        background-image: url($base-url + "images/icons/arrow_drop_up_white-24px.svg")
 
 //have to do this way as something is wrong when trying to do a mixin. escaped adds spaces and not escaped cant compile
 .flipped
@@ -307,14 +313,15 @@ footer
         &:hover
             background-color: color-nav-hover
     .pagination-active
-        background-color: color-secondary
+        background-color: color-main
         color: color-light-text
     .pagination-page-links
         font-size: 0.9em
         padding: 4px 10px 5px
     a.pagination-disabled
-        background-color: color-grey
         pointer-events: none
+        border: none
+        color: color-main-text
         &:hover
             background-color: color-grey
 
@@ -423,6 +430,10 @@ footer
     cursor: pointer
     text-align: left
     font-size: 1.25em
+    &:hover
+        background-color: color-hyperlink
+    &:focus
+        background-color: color-hyperlink
     & span
         padding: 1.5vh 1vw
         vertical-align: middle
@@ -430,6 +441,8 @@ footer
         overflow: hidden
         text-overflow: ellipsis
         white-space: nowrap
+    .text-label
+        background-color: transparent
 
 .accordion-panel
     padding: 1vh 1vw
