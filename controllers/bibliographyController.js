@@ -63,6 +63,24 @@ exports.print = function(req, res) {
     }
 }
 
+function determineStepSize(suppliedStepSize) {
+    if (suppliedStepSize == null) {
+        return STEPSIZE;
+    }
+    else if (isNaN(suppliedStepSize)) {
+        var stepSize = parseInt(suppliedStepSize);
+        if (isNaN(stepSize)) {
+            return STEPSIZE;
+        }
+        else {
+            return stepSize;
+        }
+    }
+    else {
+        return suppliedStepSize;
+    }
+}
+
 function getPrimaryBibliographies(pageNo, pageToRender, reqQuery, res) {
 
     var query = queryBuilderTarget(reqQuery.title, reqQuery.author, reqQuery.edition);
