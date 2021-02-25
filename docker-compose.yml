@@ -26,8 +26,10 @@ services:
     command: ash -c "
         ./styles.sh '$BASE_URL' &&
         ./scripts.sh '$BASE_URL' &&
-        ./wait-for.sh db:27017 -- /home/node/app/node_modules/.bin/nodemon app.js...
+        pm2-runtime npm  -- start
       "
+    depends_on: [db]
+
   db:
     image: mongo:4.2
     container_name: fontes-db

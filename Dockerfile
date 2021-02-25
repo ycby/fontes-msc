@@ -11,6 +11,7 @@ USER root
 # Uncomment these lines for running on Uni server
 # RUN npm config set proxy http://wwwcache.st-andrews.ac.uk:8080
 # RUN npm config set https-proxy http://wwwcache.st-andrews.ac.uk:8080
+RUN npm install pm2 -g
 RUN npm install stylus -g
 RUN npm install uglify-js -g
 
@@ -25,4 +26,4 @@ COPY --chown=node:node . .
 
 EXPOSE 7500
 
-CMD [ "node", "app.js" ]
+CMD [ "pm2-runtime", "npm", "--", "start" ]
