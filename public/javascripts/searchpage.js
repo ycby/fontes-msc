@@ -318,7 +318,13 @@ function replaceAllRecordsHref() {
         currentHref += "pageNo=1";
     }
 
-    currentHref += "&stepSize=-1"
+    if (currentHref.includes("stepSize=")) {
+
+        currentHref = currentHref.replace(/stepSize=\d/, "stepSize=-1");
+    } else {
+
+        currentHref += "&stepSize=-1";
+    }
 
     return currentHref;
 }
