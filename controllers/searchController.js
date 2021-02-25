@@ -30,6 +30,24 @@ exports.index = function(req, res) {
     }
 }
 
+function determineStepSize(suppliedStepSize) {
+    if (suppliedStepSize == null) {
+        return STEPSIZE;
+    }
+    else if (isNaN(suppliedStepSize)) {
+        var stepSize = parseInt(suppliedStepSize);
+        if (isNaN(stepSize)) {
+            return STEPSIZE;
+        }
+        else {
+            return stepSize;
+        }
+    }
+    else {
+        return suppliedStepSize;
+    }
+}
+
 function getTargetTexts(pageNo, pageToRender, reqQuery, res) {
 
     var query = queryBuilderHeader(reqQuery.title, reqQuery.author, reqQuery.edition, reqQuery.reference);
@@ -43,7 +61,7 @@ function getTargetTexts(pageNo, pageToRender, reqQuery, res) {
             helpers.documentCount(Header, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(Header, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {new_title: 1}).exec(callback);
+            helpers.documentSearch(Header, query, determineStepSize(reqQuery.stepSize), pageNo - 1, {new_title: 1}).exec(callback);
         }
     }, function(err, results) {
         res.render(pageToRender, helpers.formatRender(err,
@@ -67,7 +85,7 @@ function getSourceTexts(pageNo, pageToRender, reqQuery, res) {
             helpers.documentCount(BibPrime, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(BibPrime, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {title: 1}).exec(callback);
+            helpers.documentSearch(BibPrime, query, determineStepSize(reqQuery.stepSize), pageNo - 1, {title: 1}).exec(callback);
         }
     }, function(err, results) {
 
@@ -130,7 +148,7 @@ function getTargetCSV(pageNo, reqQuery, res) {
             helpers.documentCount(Header, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(Header, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {new_title: 1}).exec(callback);
+            helpers.documentSearch(Header, query, determineStepSize(reqQuery.stepSize), pageNo - 1, {new_title: 1}).exec(callback);
         }
     }, function(err, results) {
 
@@ -153,7 +171,7 @@ function getSourceCSV(pageNo, reqQuery, res) {
             helpers.documentCount(BibPrime, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(BibPrime, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {title: 1}).exec(callback);
+            helpers.documentSearch(BibPrime, query, determineStepSize(reqQuery.stepSize), pageNo - 1, {title: 1}).exec(callback);
         }
     }, function(err, results) {
 

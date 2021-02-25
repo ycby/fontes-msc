@@ -62,15 +62,17 @@ function formatHeader(records) {
 
     var formattedText = [];
 
-    records.forEach((record) => {
+    if (records) {
+        records.forEach((record) => {
 
-        formattedText.push({
-            title: record.text_title,
-            author: record.text_author,
-            edition: record.text_edition,
-            url: record.url
+            formattedText.push({
+                title: record.text_title,
+                author: record.text_author,
+                edition: record.text_edition,
+                url: record.url
+            });
         });
-    });
+    }
 
     return formattedText;
 }
