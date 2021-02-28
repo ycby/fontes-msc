@@ -17,6 +17,8 @@ const ENTRYSTEPSIZE = 10;
 
 exports.index = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
     if (req.query.texttype == "source") {
@@ -33,6 +35,8 @@ exports.index = function(req, res) {
 
 exports.csvdownload = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
     if (req.query.texttype == "source") {
@@ -48,6 +52,8 @@ exports.csvdownload = function(req, res) {
 }
 
 exports.print = function(req, res) {
+
+    req.query = helpers.removeArrayFromQuery(req.query);
 
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
@@ -90,7 +96,7 @@ function getPrimaryBibliographies(pageNo, pageToRender, reqQuery, res) {
             helpers.documentCount(BibPrime, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(BibPrime, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {title: 1}).exec(callback);
+            helpers.documentSearch(BibPrime, query, reqQuery.stepSize != null ? -1 : STEPSIZE, pageNo - 1, {title: 1}).exec(callback);
         }
     }, function(err, results) {
 
@@ -120,7 +126,7 @@ function getTargetBibliographies(pageNo, pageToRender, reqQuery, res) {
             helpers.documentCount(BibText, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(BibText, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {title: 1}).exec(callback);
+            helpers.documentSearch(BibText, query, reqQuery.stepSize != null ? -1 : STEPSIZE, pageNo - 1, {title: 1}).exec(callback);
         }
     }, function(err, results) {
 
@@ -150,7 +156,7 @@ function getSecondaryBibliographies(pageNo, pageToRender, reqQuery, res) {
             helpers.documentCount(BibSec, query, callback);
         },
         records: function(callback) {
-            helpers.documentSearch(BibSec, query, reqQuery.stepSize != null ? reqQuery.stepSize : STEPSIZE, pageNo - 1, {name_and_year: 1}).exec(callback);
+            helpers.documentSearch(BibSec, query, reqQuery.stepSize != null ? -1 : STEPSIZE, pageNo - 1, {name_and_year: 1}).exec(callback);
         }
     }, function(err, results) {
         //console.log(results.records);
