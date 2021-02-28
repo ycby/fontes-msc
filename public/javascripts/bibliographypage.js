@@ -28,6 +28,9 @@ $(document).ready(function() {
         $("#download-records").attr("href", downloadQuery);
     }
 
+    //see all records
+    $("#all-records").attr("href", replaceAllRecordsHref());
+
     //bibliography modals
     var bibliographyRows = $(".bibliography-row");
     var modals = $(".modal");
@@ -59,4 +62,33 @@ function shrinkSearch() {
     console.log("clicked");
     $("#advanced-search").slideToggle(200, "linear");
     $(this).toggleClass("flipped");
+}
+
+function replaceAllRecordsHref() {
+
+    var currentHref = window.location.href;
+    var hasQuery = true;
+
+    if (!currentHref.includes("?")) {
+        currentHref += "?";
+        hasQuery = false;
+    }
+
+    if (currentHref.includes("pageNo=")) {
+
+        currentHref = currentHref.replace(/pageNo=\d/, "pageNo=1");
+    } else {
+        if (hasQuery) currentHref += "&";
+        currentHref += "pageNo=1";
+    }
+
+    if (currentHref.includes("stepSize=")) {
+
+        currentHref = currentHref.replace(/stepSize=\d/, "stepSize=-1");
+    } else {
+
+        currentHref += "&stepSize=-1"
+    }
+
+    return currentHref;
 }
