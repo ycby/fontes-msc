@@ -18,6 +18,8 @@ const ENTRYSTEPSIZE = 10;
 
 exports.index = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
     //console.log(req.query)
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
@@ -105,6 +107,8 @@ function getSourceTexts(pageNo, pageToRender, reqQuery, res) {
 
 exports.getPrint = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
     var reqQuery = req.query;
 
     reqQuery.stepSize = -1;
@@ -120,6 +124,8 @@ exports.getPrint = function(req, res) {
 }
 
 exports.getCSV = function(req, res) {
+
+    req.query = helpers.removeArrayFromQuery(req.query);
 
     var reqQuery = req.query;
 
@@ -186,6 +192,8 @@ function getSourceCSV(pageNo, reqQuery, res) {
 
 exports.getTargetSuggestions = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
     var title = req.query.title;
 
     var query = {};
@@ -203,6 +211,8 @@ exports.getTargetSuggestions = function(req, res) {
 }
 
 exports.getSourceSuggestions = function(req, res) {
+
+    req.query = helpers.removeArrayFromQuery(req.query);
 
     var title = req.query.title;
 
@@ -223,6 +233,8 @@ exports.getSourceSuggestions = function(req, res) {
 }
 
 exports.getEntries = function(req, res) {
+
+    req.query = helpers.removeArrayFromQuery(req.query);
 
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
@@ -311,6 +323,8 @@ exports.getEntries = function(req, res) {
 
 exports.getSourcesForTargetText = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
     // res.send("NOT IMPLEMENTED " + req.params.targetid);
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
@@ -364,6 +378,8 @@ exports.getSourcesForTargetText = function(req, res) {
 }
 
 exports.getPrintSourcesForTargetText = function(req, res) {
+
+    req.query = helpers.removeArrayFromQuery(req.query);
 
     // res.send("NOT IMPLEMENTED " + req.params.targetid);
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
@@ -419,6 +435,8 @@ exports.getPrintSourcesForTargetText = function(req, res) {
 
 exports.getCSVSourcesForTargetText = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
     // res.send("NOT IMPLEMENTED " + req.params.targetid);
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
@@ -467,6 +485,8 @@ exports.getCSVSourcesForTargetText = function(req, res) {
 }
 
 exports.getTargetsForSourceText = function(req, res) {
+
+    req.query = helpers.removeArrayFromQuery(req.query);
 
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
@@ -524,6 +544,8 @@ exports.getTargetsForSourceText = function(req, res) {
 
 exports.getPrintTargetsForSourceText = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
     async.parallel({
@@ -580,6 +602,8 @@ exports.getPrintTargetsForSourceText = function(req, res) {
 
 exports.getCSVTargetsForSourceText = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
     async.parallel({
@@ -629,6 +653,8 @@ exports.getCSVTargetsForSourceText = function(req, res) {
 
 exports.printEntries = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
     async.parallel({
@@ -671,6 +697,8 @@ exports.printEntries = function(req, res) {
 }
 
 exports.csvEntries = function(req, res) {
+
+    req.query = helpers.removeArrayFromQuery(req.query);
 
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
