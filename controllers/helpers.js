@@ -409,6 +409,17 @@ function escapeRegex(string) {
     return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 }
 
+//for removing arrays and replacing them with the first element of the array
+function removeArrayFromQuery(query) {
+
+    for (const property in query) {
+
+        if (Array.isArray(query[property])) query[property] = query[property][0];
+    }
+
+    return query;
+}
+
 module.exports = {
     formatRender,
     formatSuggestions,
@@ -430,5 +441,6 @@ module.exports = {
     documentSearch,
     documentCount,
     documentById,
-    escapeRegex
+    escapeRegex,
+    removeArrayFromQuery
 }
