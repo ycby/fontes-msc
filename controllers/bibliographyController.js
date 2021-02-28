@@ -17,6 +17,8 @@ const ENTRYSTEPSIZE = 10;
 
 exports.index = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
     if (req.query.texttype == "source") {
@@ -33,6 +35,9 @@ exports.index = function(req, res) {
 
 exports.csvdownload = function(req, res) {
 
+    req.query = helpers.removeArrayFromQuery(req.query);
+
+
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
     if (req.query.texttype == "source") {
@@ -48,6 +53,9 @@ exports.csvdownload = function(req, res) {
 }
 
 exports.print = function(req, res) {
+
+    req.query = helpers.removeArrayFromQuery(req.query);
+
 
     var pageNo = req.query.pageNo != null? req.query.pageNo : 1;
 
